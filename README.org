@@ -1,0 +1,54 @@
+#+TITLE: NixOS Configurations
+#+AUTHOR: Rob
+#+DATE: [2024-07-25]
+#+OPTIONS: toc:nil
+
+* Table of Contents
+  1. [[#introduction][Introduction]]
+  2. [[#configuration-structure][Configuration Structure]]
+  3. [[#features-and-packages][Features and Packages]]
+  4. [[#how-to-use][How to Use]]
+  5. [[#contributing][Contributing]]
+  6. [[#license][License]]
+
+* Introduction
+  Welcome to my NixOS configurations repository. This repository contains the configuration files for setting up my NixOS system, including desktop environment settings, package management, and more.
+
+* Configuration Structure
+  The configurations are organized into several key files:
+
+  - ~configuration.nix~: Main system configuration file.
+  - ~home.nix~: Home Manager configuration for managing user-specific settings.
+  - ~hardware-configuration.nix~: Hardware-specific settings auto-generated during installation.
+  - ~flake.nix~: Flake configuration for defining and managing the NixOS system, home configurations, and more.
+
+* Features and Packages
+  The configurations include a variety of features and packages, including:
+
+  - **Doom Emacs**: Configured for efficient text editing and programming.
+  - **Home Manager**: Manages user-specific configurations and packages.
+  - **Custom Aliases**: Helpful shell aliases for common commands.
+  - **System Packages**: A curated set of packages for development, media, and general use.
+
+* How to Use
+  To use these configurations:
+
+  1. Clone the repository:
+     #+BEGIN_SRC shell
+     git clone https://github.com/your-username/Dotfiles.git
+     cd Dotfiles
+     #+END_SRC
+
+  2. Build and apply the configurations:
+     #+BEGIN_SRC shell
+     sudo nixos-rebuild switch --flake .
+     home-manager switch --flake .
+     #+END_SRC
+
+  3. Make sure to replace placeholders with actual paths and URLs as needed.
+
+* Contributing
+  Contributions are welcome! Please fork the repository and create a pull request with your changes. Make sure to follow the existing coding style and include detailed commit messages.
+
+* License
+  This project is licensed under the MIT License - see the [[#license][License]] section for details.
