@@ -33,16 +33,21 @@ in
     EDITOR = "emacs";
   };
 
-  programs.bash.enable = true;
-  programs.bash.shellAliases = {
-    ll = "ls -l";
-    ".." = "cd ..";
-    dt = "cd ~/.dotfiles";
-    hm = "home-manager switch --flake .";
-    ns = "sudo nixos-rebuild switch --flake .";
-
-
+  programs.bash = {
+    enable = true;
+    shellAliases = {
+      ll = "ls -l";
+      ".." = "cd ..";
+      dt = "cd ~/.dotfiles";
+      hm = "home-manager switch --flake .";
+      ns = "sudo nixos-rebuild switch --flake .";
+    };
+    initExtra = ''
+      export PATH="$HOME/.config/emacs/bin:$PATH"
+      neofetch
+    '';
   };
+
 
   programs.home-manager.enable = true;
 }
