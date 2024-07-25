@@ -3,6 +3,8 @@
 #+DATE: [2024-07-25]
 #+OPTIONS: toc:nil
 
+[[https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/NixOS_logo.svg/1280px-NixOS_logo.svg.png]]
+
 * Table of Contents
   1. [[#introduction][Introduction]]
   2. [[#configuration-structure][Configuration Structure]]
@@ -25,10 +27,10 @@
 * Features and Packages
   The configurations include a variety of features and packages, including:
 
-  - **Doom Emacs**: Configured for efficient text editing and programming.
-  - **Home Manager**: Manages user-specific configurations and packages.
-  - **Custom Aliases**: Helpful shell aliases for common commands.
-  - **System Packages**: A curated set of packages for development, media, and general use.
+  - *Doom Emacs*: Configured for efficient text editing and programming.
+  - *Home Manager*: Manages user-specific configurations and packages.
+  - *Custom Aliases*: Helpful shell aliases for common commands.
+  - *System Packages*: A curated set of packages for development, media, and general use.
 
 * How to Use
   To use these configurations:
