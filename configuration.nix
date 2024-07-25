@@ -16,10 +16,6 @@
   # Experimental Features
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -110,8 +106,8 @@
     description = "rob";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      kate
-    #  thunderbird
+      #kate
+    thunderbird
     ];
   };
 
@@ -160,16 +156,10 @@
    })
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  # Enable systemd-resolved for DNS resolution
+  services.resolved = {
+    enable = true;
+  };
 
   # Firewall Configuration
   networking.firewall = {
