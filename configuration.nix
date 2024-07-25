@@ -168,36 +168,13 @@
   #   enableSSHSupport = true;
   # };
 
- # WireGuard configuration
-#  networking.wireguard.interfaces = {
-#    wg0 = {
-#      # Interface name
-#      ips = [ "10.0.0.1/24" ]; # Local IP address for the WireGuard interface
-#      listenPort = 51820; # The port on which WireGuard listens for connections
-#
-#      # Path to the private key file
-#      privateKeyFile = "/etc/wireguard/wg0-privatekey"; 
-#
-#      peers = [
-#        {
-#          publicKey = "peer1_public_key"; # Replace with the peer's public key
-#          allowedIPs = [ "10.0.0.2/32" ]; # IP address range that the peer is allowed to use
-#          endpoint = "peer1.example.com:51820"; # Peer endpoint (IP and port)
-#        }
-#        # Additional peers can be added here
-#      ];
-#    };
-#  };
-
-  # List services that you want to enable:
-
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
   # Firewall Configuration
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 80 443 8443 ];
+    allowedTCPPorts = [ 22 80 443 8443 51820 ];
     allowedUDPPorts = [ 123 ];
     interfaces = {
       "eth0" = { allowedTCPPorts = [ 8080 ]; };
