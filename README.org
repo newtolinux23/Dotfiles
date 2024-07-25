@@ -53,4 +53,4 @@
   Contributions are welcome! Please fork the repository and create a pull request with your changes. Make sure to follow the existing coding style and include detailed commit messages.
 
 * License
-  This project is licensed under the MIT License - see the [[#license][License]] section for details.
+  This project is licensed under the MIT License - see the [[https://github.com/newtolinux23/Dotfiles/blob/main/LICENSE][License]] section for details.
