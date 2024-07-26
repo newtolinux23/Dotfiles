@@ -161,13 +161,32 @@
     enable = true;
   };
 
+  networking = {
+    wg-quick.interfaces = {
+      wg0 = {
+        address = [ "10.72.1.2/24" ];
+        dns = [ "10.72.1.1" ];
+        privateKeyFile = "/home/rob/wireguard-keys/private";
+        
+        peers = [
+          {
+            publicKey = "HYrJHiCFn5+dzDzr1RSHWHsbc0Cv8RhRaABNDl5Xd0A=";
+            allowedIPs = [ "0.0.0.0/0" "::/0" ];
+            endpoint = "104.236.1.118:51820";
+            persistentKeepalive = 25;
+          }
+        ];
+      };
+    };
+  };
+
   # Firewall Configuration
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 22 80 443 8443 51820 ];
     allowedUDPPorts = [ 123 ];
     interfaces = {
-      "eth0" = { allowedTCPPorts = [ 8080 ]; };
+      "eth0" = { allowedTCPPorts = [ 8080 51820 ]; };
     };
   };
 
