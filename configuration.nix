@@ -124,6 +124,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    pkgs.flatpak
     pkgs.ispell 
     pkgs.discount
     pkgs.google-chrome
