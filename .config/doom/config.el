@@ -7,9 +7,9 @@
 ;; ------------------------------
 ;; Fonts and Appearance
 ;; ------------------------------
-(setq doom-font (font-spec :family "Source Code Pro" :size 16)
-      doom-variable-pitch-font (font-spec :family "Source Code Pro" :size 16)
-      doom-big-font (font-spec :family "Source Code Pro" :size 20)
+(setq doom-font (font-spec :family "Source Code Pro" :size 20)
+      doom-variable-pitch-font (font-spec :family "Source Code Pro" :size 20)
+      doom-big-font (font-spec :family "Source Code Pro" :size 24)
       doom-theme 'doom-molokai
       display-line-numbers-type t
       doom-modeline-icon t
