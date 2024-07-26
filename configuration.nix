@@ -10,8 +10,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.hostName = "nixos"; 
+  # networking.wireless.enable = true;  
 
   # Experimental Features
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -45,7 +45,7 @@
   services.xserver.desktopManager.plasma5.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.theme = "breeze"; # Set your custom theme
+  services.displayManager.sddm.theme = "breeze";
   services.displayManager.sddm.settings = {
     Theme = {
       Current = "breeze";
@@ -53,7 +53,7 @@
       FacesDir = "/run/current-system/sw/share/sddm/faces";
     };
     X11 = {
-      ServerArguments = "-nolisten tcp -dpi 115"; # Adjust DPI here
+      ServerArguments = "-nolisten tcp -dpi 120";
     };
   };
 
@@ -99,7 +99,7 @@
   # Hardware Acceleration
   hardware.opengl.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account.  
   users.users.rob = {
     isNormalUser = true;
     home = "/home/rob";
@@ -124,8 +124,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
     pkgs.ispell 
     pkgs.discount
     pkgs.google-chrome
@@ -191,6 +189,6 @@
   };
 
 
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "24.05"; 
 
 }
