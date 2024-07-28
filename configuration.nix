@@ -146,6 +146,7 @@
     pkgs.wineWow64Packages.fonts
     pkgs.git
     pkgs.sudo
+    pkgs.hugo
     pkgs.emacs
   ];
 
