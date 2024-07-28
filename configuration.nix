@@ -43,6 +43,7 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
+  programs.dconf.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.theme = "breeze";
@@ -53,7 +54,7 @@
       FacesDir = "/run/current-system/sw/share/sddm/faces";
     };
     X11 = {
-      ServerArguments = "-nolisten tcp -dpi 120";
+      ServerArguments = "-nolisten tcp -dpi 125";
     };
   };
 
@@ -124,6 +125,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    pkgs.libsForQt5.bismuth
+    pkgs.freetube
     pkgs.flatpak
     pkgs.ispell 
     pkgs.discount
