@@ -17,6 +17,7 @@
       inhibit-startup-screen t)
 
 (global-display-line-numbers-mode t)
+(menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
@@ -30,7 +31,8 @@
 ;; ------------------------------
 (setq org-directory "~/org/"
       org-startup-indented t
-      org-hide-leading-stars t)
+      org-hide-leading-stars t
+      org-hide-emphasis-markers t)
 
 (setq-default fill-column 80)
 
@@ -49,6 +51,21 @@
  'org-babel-load-languages
  '((emacs-lisp . t)
    (shell . t)))
+
+;; ------------------------------
+;; Writing and Focus Tools
+;; ------------------------------
+(use-package! writegood-mode
+  :hook (org-mode . writegood-mode))
+
+(use-package! focus
+  :hook (org-mode . focus-mode))
+
+(use-package! visual-fill-column
+  :hook (org-mode . visual-fill-column-mode)
+  :config
+  (setq visual-fill-column-width 80
+        visual-fill-column-center-text t))
 
 ;; ------------------------------
 ;; PDF Tools Configuration
@@ -113,9 +130,7 @@
       :desc "Find references" "r" #'lsp-find-references)
 
 (map! :leader
-      :desc "Correct word" "sc" #'flyspell-correct-word-before-point)
-
-(map! :leader
+      :desc "Correct word" "sc" #'flyspell-correct-word-before-point
       :desc "Flyspell correct" "ss" #'flyspell-correct-wrapper)
 
 (map! :leader

@@ -45,3 +45,7 @@
 (package! org-tanglesync)            ; Synchronization for Org Babel tangling
 (package! company)                   ; Completion backend
 (package! dashboard)                 ; Dashboard for Emacs
+(package! visual-fill-column)
+(package! pandoc-mode)
+(package! writegood-mode)
+(package! focus)
