@@ -45,6 +45,7 @@ in
     initExtra = ''
       export PATH="$HOME/.config/emacs/bin:$PATH"
       neofetch
+      eval "$(starship init bash)"
     '';
   };
 

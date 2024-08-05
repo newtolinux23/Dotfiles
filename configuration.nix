@@ -136,6 +136,7 @@
     pkgs.texliveFull
     pkgs.whatsapp-for-linux
     pkgs.wget
+    pkgs.starship
     pkgs.cmake
     pkgs.shellcheck
     pkgs.ripgrep
