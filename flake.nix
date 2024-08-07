@@ -7,36 +7,26 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }:
-   let
-    lib = nixpkgs.lib;
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-    sddm-chili = import ./sddm-chili.nix { inherit pkgs; };
-   in {
-    nixosConfigurations = {  
-        nixos = lib.nixosSystem {
-        inherit system;
-        modules = [ 
-          ./configuration.nix 
-          {
-            nixpkgs.overlays = [
-              (final: prev: {
-                sddm-chili = sddm-chili;
-              })
-            ];
-            environment.systemPackages = [ pkgs.sddm-chili ];
-            services.displayManager.sddm.theme = "chili";
-            services.displayManager.sddm.settings.ThemeDir = "/run/current-system/sw/share/sddm/themes";
-          }
-        ];
+  outputs = { self, nixpkgs, home-manager, ... }: let
+      system = "x86_64-linux";
+      overlays = [(import ./sddm-chili-overlay.nix)];
+      pkgs = import nixpkgs {
+        inherit system overlays;
       };
-    };  
-    homeConfigurations = { 
+    in {
+      nixosConfigurations = {
+        nixos = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [ 
+            ./configuration.nix 
+          ];
+        };
+      };
+      homeConfigurations = {
         rob = home-manager.lib.homeManagerConfiguration {
-         inherit pkgs;
-         modules = [ ./home.nix ];
-     };
-   }; 
- };
+          inherit pkgs;
+          modules = [ ./home.nix ];
+        };
+      };
+    };
 }

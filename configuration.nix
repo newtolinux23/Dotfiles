@@ -163,6 +163,7 @@
     pkgs.sudo
     pkgs.hugo
     pkgs.emacs
+    pkgs.sddm-chili
   ];
 
   fonts.packages = with pkgs; [

@@ -1,0 +1,119 @@
+[33mcommit ee457da4f1c31a80daa5ce6a5616edd30952e7e2[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: rob <corestepper@gmail.com>
+Date:   Wed Aug 7 16:02:28 2024 -0500
+
+    Save progress before rebuilding NixOS
+
+[33mcommit 12ba78954db1572e3d30fe1332957efb18e7f862[m
+Author: rob <corestepper@gmail.com>
+Date:   Wed Aug 7 15:02:45 2024 -0500
+
+    Changing SDDM Theme to chilli
+
+[33mcommit 038e5cdbbae39dfc3e68525618790927b301c155[m
+Author: rob <corestepper@gmail.com>
+Date:   Mon Aug 5 11:26:22 2024 -0500
+
+    cleaning-up
+
+[33mcommit 23b6680e9035805a1ce6403ac92840043b97abd7[m
+Author: rob <corestepper@gmail.com>
+Date:   Mon Aug 5 00:52:33 2024 -0500
+
+    Cleaning up
+
+[33mcommit d1cbebae6c5055c1fb2397b3d6e8188d3325cd43[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: rob <corestepper@gmail.com>
+Date:   Thu Aug 1 09:22:36 2024 -0500
+
+    Changes and modifications in Doom Emacs files
+
+[33mcommit 462fecc0b82df82481b398d7089faf43978c9100[m
+Author: rob <corestepper@gmail.com>
+Date:   Wed Jul 31 11:55:38 2024 -0500
+
+    cleaning up
+
+[33mcommit 030681e27b1035e225f1dfab4f2bc347763b0193[m
+Author: rob <corestepper@gmail.com>
+Date:   Sun Jul 28 09:03:23 2024 -0500
+
+    some changes
+
+[33mcommit 5a8ae0a6f7012f96e26470f9549dc23ba4b6481d[m
+Author: rob <corestepper@gmail.com>
+Date:   Sun Jul 28 08:56:51 2024 -0500
+
+    some changes
+
+[33mcommit 5b4a5221387756d4dc2248d1804d83814cd9e509[m
+Author: rob <corestepper@gmail.com>
+Date:   Sat Jul 27 23:18:22 2024 -0500
+
+    wireguard allows IP's changed
+
+[33mcommit c86cee7b87b71306bcc0047544a91c9d14c82148[m
+Author: rob <corestepper@gmail.com>
+Date:   Fri Jul 26 11:14:10 2024 -0500
+
+    configuration cleanup
+
+[33mcommit 8122a7e4662ba380c4e2b3d86885594bcbf8178b[m
+Author: rob <corestepper@gmail.com>
+Date:   Fri Jul 26 10:07:15 2024 -0500
+
+    Changes, doom emacs config.el
+
+[33mcommit 170a871ddac50b3764477abb8c2396aad3888ec1[m
+Author: rob <corestepper@gmail.com>
+Date:   Fri Jul 26 00:45:24 2024 -0500
+
+    Minimal changes to configuration.nix
+
+[33mcommit dfda51488a58b3706b9d4546830d71db9c251241[m
+Author: rob <corestepper@gmail.com>
+Date:   Thu Jul 25 23:58:35 2024 -0500
+
+    Adding wireguard client configuration
+
+[33mcommit ed012ed6756b6096dffaa4193ced096ab0f7a911[m
+Author: rob <corestepper@gmail.com>
+Date:   Thu Jul 25 15:59:03 2024 -0500
+
+    wireguard failed config
+
+[33mcommit 42e4609734f5e7d4d2890876df156c3c313d3da7[m
+Author: rob <corestepper@gmail.com>
+Date:   Thu Jul 25 15:40:23 2024 -0500
+
+    wireguard configuration failed.
+
+[33mcommit 49391236488a9ffb51f21d5675addc40893022f3[m
+Author: rob <corestepper@gmail.com>
+Date:   Thu Jul 25 12:04:02 2024 -0500
+
+    wireguard configuration
+
+[33mcommit 70204b6ed90e5eeb4931213d934d31e405605e74[m
+Author: rob <corestepper@gmail.com>
+Date:   Thu Jul 25 11:13:56 2024 -0500
+
+    Add README.org license
+
+[33mcommit 675ed8b946c1b0854691ec281999c9a7281072a9[m
+Author: rob <corestepper@gmail.com>
+Date:   Thu Jul 25 11:11:13 2024 -0500
+
+    Add README.org picture
+
+[33mcommit 18ca269be901e7c5e180e00a4279e1db96efadfd[m
+Author: rob <corestepper@gmail.com>
+Date:   Thu Jul 25 11:07:58 2024 -0500
+
+    Add README and MIT license
+
+[33mcommit c6de188f8a03437347373db77ddd041d0de10a5e[m
+Author: rob <corestepper@gmail.com>
+Date:   Thu Jul 25 10:55:24 2024 -0500
+
+    Initial commit, new machine
