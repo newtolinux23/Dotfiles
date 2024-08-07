@@ -46,29 +46,15 @@
   programs.dconf.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-#  services.displayManager.sddm.theme = "chili";
-#  services.displayManager.sddm.settings = {
-#    Theme = {
-#      Current = "chili";
-#      ThemeDir = "/run/current-system/sw/share/sddm/themes";
-#      FacesDir = "/run/current-system/sw/share/sddm/faces";
-#    };
-#    X11 = {
-#      ServerArguments = "-nolisten tcp -dpi 125";
-#    };
-#  };
-  services.displayManager.sddm = {
-    enable = true;
-    theme = "chili";
-    settings = {
-      Theme = {
-        Current = "chili";
-        ThemeDir = "/run/current-system/sw/share/sddm/themes";
-        FacesDir = "/run/current-system/sw/share/sddm/faces";
-      };
-      X11 = {
-        ServerArguments = "-nolisten tcp -dpi 125";
-      };
+  services.displayManager.sddm.theme = "breeze";
+  services.displayManager.sddm.settings = {
+    Theme = {
+      Current = "breeze";
+      ThemeDir = "/run/current-system/sw/share/sddm/themes";
+      FacesDir = "/run/current-system/sw/share/sddm/faces";
+    };
+    X11 = {
+      ServerArguments = "-nolisten tcp -dpi 125";
     };
   };
 
@@ -163,7 +149,6 @@
     pkgs.sudo
     pkgs.hugo
     pkgs.emacs
-    pkgs.sddm-chili
   ];
 
   fonts.packages = with pkgs; [
