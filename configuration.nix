@@ -1,23 +1,4 @@
 { config, pkgs, lib, ... }:
-let
-  sddm-chili = pkgs.stdenv.mkDerivation {
-    pname = "sddm-chili";
-    version = "latest";
-    src = pkgs.fetchFromGitHub {
-      owner = "MarianArlt";
-      repo = "sddm-chili";
-      rev = "master"; # Use the commit hash if specific version is needed
-      sha256 = "1wivfdjqb6ks9mjq0yqw67z1ixwh9z9fi3s4gyidj7ihmy17wwn0"; # Replace with actual SHA256 hash
-    };
-
-    nativeBuildInputs = [ pkgs.unzip ];
-
-    installPhase = ''
-      mkdir -p $out/share/sddm/themes/chili
-      cp -r * $out/share/sddm/themes/chili
-    '';
-  };
-in
 
 {
   imports =
@@ -60,20 +41,34 @@ in
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
+#  services.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
   programs.dconf.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.theme = "chili";
-  services.displayManager.sddm.settings = {
-    Theme = {
-      Current = "chili";
-      ThemeDir = "/run/current-system/sw/share/sddm/themes";
-      FacesDir = "/run/current-system/sw/share/sddm/faces";
-    };
-    X11 = {
-      ServerArguments = "-nolisten tcp -dpi 125";
+#  services.displayManager.sddm.theme = "chili";
+#  services.displayManager.sddm.settings = {
+#    Theme = {
+#      Current = "chili";
+#      ThemeDir = "/run/current-system/sw/share/sddm/themes";
+#      FacesDir = "/run/current-system/sw/share/sddm/faces";
+#    };
+#    X11 = {
+#      ServerArguments = "-nolisten tcp -dpi 125";
+#    };
+#  };
+  services.displayManager.sddm = {
+    enable = true;
+    theme = "chili";
+    settings = {
+      Theme = {
+        Current = "chili";
+        ThemeDir = "/run/current-system/sw/share/sddm/themes";
+        FacesDir = "/run/current-system/sw/share/sddm/faces";
+      };
+      X11 = {
+        ServerArguments = "-nolisten tcp -dpi 125";
+      };
     };
   };
 
