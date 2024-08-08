@@ -54,6 +54,10 @@ in
       hm = "home-manager switch --flake .";
       ns = "sudo nixos-rebuild switch --flake .";
       cn = "sudo nano configuration.nix";
+      ga = "git add .";
+      gc = "git commit -m 'Cleaning up things'";
+      gs = "git stash";
+      gp = "git push -u origin main";
     };
     initExtra = ''
       export PATH="$HOME/.config/emacs/bin:$PATH"
