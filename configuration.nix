@@ -103,11 +103,16 @@
   # Hardware Acceleration
   hardware.opengl.enable = true;
 
+  hardware.facetimehd.enable = true;
+
   # Use the latest stable kernel and include v4l2loopback
+  boot.kernelModules = [ "v4l2loopback" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
-  boot.kernelModules = [
-    "v4l2loopback"
-  ];
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
+  '';
+
+  security.polkit.enable = true;
 
   # Define a user account.  
   users.users.rob = {
@@ -158,6 +163,10 @@
     pkgs.sudo
     pkgs.hugo
     pkgs.emacs
+    pkgs.v4l-utils
+    pkgs.webcamoid
+    pkgs.libsForQt5.kamoso
+    pkgs.linuxKernel.packages.linux_zen.facetimehd
   ];
 
   fonts.packages = with pkgs; [
