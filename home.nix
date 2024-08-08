@@ -2,7 +2,6 @@
 
 let
   dotfiles = ./.;
-  kmod = pkgs.kmod;  # This package provides the lsmod and modprobe commands
 in
 {
   home.username = "rob";
@@ -40,21 +39,6 @@ in
       include "/nix/store/$(basename $(ls -d /nix/store/*-nano*/share/nano))/share/nano/tex.nanorc"
       include "/nix/store/$(basename $(ls -d /nix/store/*-nano*/share/nano))/share/nano/html.nanorc"
     '';
-
-    # Systemd service for v4l2loopback
-    ".config/systemd/user/obs-virtualcam.service".text = ''
-      [Unit]
-      Description=Load v4l2loopback for OBS Virtual Camera
-
-      [Service]
-      Type=oneshot
-      ExecStart=${kmod}/bin/modprobe v4l2loopback devices=1 card_label="OBS Virtual Camera" exclusive_caps=1
-      RemainAfterExit=true
-
-      [Install]
-      WantedBy=default.target
-    '';
-
   };
 
   home.sessionVariables = {
