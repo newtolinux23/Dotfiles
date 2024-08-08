@@ -22,6 +22,8 @@ in
     pkgs.dejavu_fonts
     pkgs.liberation_ttf
     pkgs.fira-code
+    pkgs.obs-studio
+    pkgs.v4l2loopback
     # Add any other packages you might need
   ];
 
@@ -62,4 +64,12 @@ in
   };
 
   programs.home-manager.enable = true;
+
+  # Ensure v4l2loopback kernel module is loaded
+  home.activationScripts.enableVirtualCamera = {
+    text = ''
+      sudo modprobe v4l2loopback devices=1 card_label="OBS Virtual Camera" exclusive_caps=1
+    '';
+  };
+
 }
