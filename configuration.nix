@@ -86,6 +86,7 @@
     "zswap.enabled=1"
     "zswap.compressor=lz4"
     "zswap.max_pool_percent=20"
+    "usbcore.autosuspend=-1"
   ];
 
   # Systemd Services Configuration

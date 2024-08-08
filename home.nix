@@ -17,8 +17,12 @@ in
     };
   };
 
-  home.packages = [
-    # pkgs.emacs
+  home.packages = with pkgs; [
+    pkgs.nano
+    pkgs.dejavu_fonts
+    pkgs.liberation_ttf
+    pkgs.fira-code
+    # Add any other packages you might need
   ];
 
   # Linking Doom Emacs configuration files using relative paths
@@ -27,6 +31,13 @@ in
     ".config/doom/init.el".source = "${dotfiles}/.config/doom/init.el";
     ".config/doom/packages.el".source = "${dotfiles}/.config/doom/packages.el";
     ".config/doom/custom.el".source = "${dotfiles}/.config/doom/custom.el";
+
+    # Nano syntax highlighting configuration
+    ".nanorc".text = ''
+      include "/nix/store/$(basename $(ls -d /nix/store/*-nano*/share/nano))/share/nano/markdown.nanorc"
+      include "/nix/store/$(basename $(ls -d /nix/store/*-nano*/share/nano))/share/nano/tex.nanorc"
+      include "/nix/store/$(basename $(ls -d /nix/store/*-nano*/share/nano))/share/nano/html.nanorc"
+    '';
   };
 
   home.sessionVariables = {
@@ -41,6 +52,7 @@ in
       dt = "cd ~/.dotfiles";
       hm = "home-manager switch --flake .";
       ns = "sudo nixos-rebuild switch --flake .";
+      cn = "sudo nano configuration.nix";
     };
     initExtra = ''
       export PATH="$HOME/.config/emacs/bin:$PATH"
@@ -48,7 +60,6 @@ in
       eval "$(starship init bash)"
     '';
   };
-
 
   programs.home-manager.enable = true;
 }
