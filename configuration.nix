@@ -104,8 +104,10 @@
   hardware.opengl.enable = true;
 
   # Use the latest stable kernel and include v4l2loopback
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.extraModulePackages = with pkgs.linuxPackages_latest; [ v4l2loopback ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+  boot.kernelModules = [
+    "v4l2loopback"
+  ];
 
   # Define a user account.  
   users.users.rob = {
