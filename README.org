@@ -1,0 +1,38 @@
+#+TITLE: NixOS Configurations
+#+AUTHOR: Rob
+#+DATE: [2024-07-25]
+#+OPTIONS: toc:nil
+
+[[https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/NixOS_logo.svg/1280px-NixOS_logo.svg.png]]
+
+* Introduction
+
+As a beginner in Linux, diving into NixOS and Hyprland might sound intimidating. There's a common myth circulating in the community that "NixOS is not for beginners," and that "Hyprland is even more difficult." While these tools have steep learning curves, I believe that with time, effort, and a willingness to learn, anyone can master them. My experience with NixOS and Hyprland has been challenging, but it has also been one of the most rewarding journeys I've undertaken in my computing life.
+
+* My Experience with NixOS
+
+When I first installed NixOS on my main PC, I knew I was stepping into a world very different from the typical Linux distributions. NixOS is a declarative, stateless, and reproducible operating system, which immediately intrigued me. However, the learning curve was steep—every configuration change required me to learn new concepts and syntax.
+
+Despite the challenges, I persisted. Every day, NixOS taught me something new, from managing packages with the Nix package manager to configuring my system with Home Manager. I even discovered the power of Nix flakes and began to appreciate the stability and flexibility that NixOS offered.
+
+One of the most transformative experiences was learning to create modules for Home Manager. Initially, my configuration file became unwieldy and difficult to manage as I added more features. By breaking it down into modules, I was able to regain control and streamline my workflow. NixOS has not only changed how I interact with my PC but has also taught me the value of modularity and organization.
+
+* Discovering Hyprland
+
+A few days ago, I stumbled upon Hyprland, a dynamic tiling Wayland compositor. At first, it seemed like another daunting tool to learn, especially since I was still getting accustomed to NixOS. But the more I used it, the more I realized how powerful and flexible Hyprland is.
+
+Hyprland has significantly changed how I interact with my desktop environment. The customization options are vast, and its performance is snappy and responsive. Configuring Hyprland with NixOS has been an exhilarating experience. I've been fine-tuning my configuration files, learning to manage my settings with Home Manager, and creating a seamless workflow that suits my needs.
+
+* The Power of Perseverance
+
+The journey hasn't been easy. There were times when I felt overwhelmed by the complexity of NixOS and Hyprland. But every challenge I faced was an opportunity to learn and grow. Through perseverance and a willingness to dive deep into the documentation and community resources, I have been able to overcome obstacles and build a system that is uniquely tailored to my preferences.
+
+NixOS and Doom Emacs have forever changed how I work on my computer. They have provided me with a level of stability, flexibility, and control that I had never experienced before. NixOS, with its declarative configuration, has made my system incredibly robust, while Doom Emacs has become an indispensable tool in my workflow.
+
+* Conclusion
+
+To anyone considering NixOS and Hyprland, I say this: Don't be discouraged by the initial complexity. Yes, it might seem daunting at first, but the rewards are well worth the effort. If you're willing to put in the time to learn and explore, you'll find that these tools can transform your Linux experience in ways you never imagined.
+
+NixOS and Hyprland have taught me that the most powerful tools often come with the steepest learning curves. But with patience and perseverance, these tools can unlock new potentials and change how you interact with your computer forever.
+
+Keep pushing forward, keep learning, and don't be afraid to make mistakes. Every error is just another step toward mastery.

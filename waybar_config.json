@@ -1,0 +1,40 @@
+ config, pkgs, ... }:
+
+{
+  xdg.configFile."waybar/config".text = ''
+    {
+      "layer": "top",
+      "position": "top",
+      "height": 24,
+      "spacing": 5,
+      "modules-left": ["wlr/workspaces", "wlr/taskbar"],
+      "modules-center": ["hyprland/window"],
+      "modules-right": ["tray", "network", "clock"]
+    }
+  '';
+
+  xdg.configFile."waybar/style.css".text = ''
+    * {
+      font-family: JetBrainsMono Nerd Font Mono;
+      font-size: 16px;
+      background: #282a36;
+      color: #f8f8f2;
+      margin: 1.2px;
+    }
+
+    #clock {
+      font-weight: bold;
+      color: #ffb86c; /* Orange */
+    }
+
+    /* Additional styling rules */
+  '';
+
+  # Install Waybar and necessary dependencies
+  home.packages = with pkgs; [
+    waybar
+    jq  # For JSON configuration validation
+    # Add other dependencies as needed
+  ];
+}
+
