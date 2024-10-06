@@ -75,6 +75,12 @@
     pavucontrol
     proxychains-ng
     pulseaudio
+    python3Packages.openai
+    python3Packages.click
+    python3Packages.requests
+    python3
+    python311Packages.pip
+    python312Packages.pip
     qt5.qtwayland
     qt6.qmake
     qt6.qtwayland

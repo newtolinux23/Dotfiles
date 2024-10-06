@@ -3,10 +3,10 @@
 pkgs.mkShell {
   buildInputs = [
     pkgs.python312
-    pkgs.python312Packages.pip                  
+    pkgs.python312Packages.pip
     pkgs.python312Packages.requests
-    pkgs.python312Packages.aiohttp              
-    pkgs.python312Packages.tqdm                 
+    pkgs.python312Packages.aiohttp
+    pkgs.python312Packages.tqdm
     pkgs.python312Packages.setuptools
     pkgs.python312Packages.wheel
     (pkgs.python312Packages.buildPythonPackage {
@@ -15,12 +15,14 @@ pkgs.mkShell {
       src = pkgs.fetchPypi {
         pname = "openai";
         version = "0.28.0";
-        sha256 = "1557wlcsw2kflpq3j5xbh6jh87xyfzzwrwfsmsbacjw6qb27hys1";  # Correct hash
+        sha256 = "1557wlcsw2kflpq3j5xbh6jh87xyfzzwrwfsmsbacjw6qb27hys1";  # Corrected sha256 hash
       };
       nativeBuildInputs = [
         pkgs.python312Packages.setuptools
         pkgs.python312Packages.wheel
         pkgs.python312Packages.pip
+      ];
+      propagatedBuildInputs = [
         pkgs.python312Packages.aiohttp
         pkgs.python312Packages.tqdm
         pkgs.python312Packages.requests

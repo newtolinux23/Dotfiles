@@ -51,6 +51,7 @@ in {
  # Alacritty Configuration with Dracula Theme and Nerd Fonts
   xdg.configFile."alacritty/alacritty.toml".text = ''
     [window]
+    wayland = true
     opacity = 0.9
     decorations = "full"
 
@@ -89,10 +90,12 @@ in {
   home.sessionVariables = {
     EDITOR = "emacs";
     TERMINAL = "alacritty";
-    XKBOPTIONS = "terminate:ctrl_alt_bksp";
-    XKBLAYOUT = "us";
     XDG_SESSION_TYPE = "wayland";
     XDG_CURRENT_DESKTOP = "Hyprland";
+    GDK_BACKEND = "wayland";
+    QT_QPA_PLATFORM = "wayland";
+    MOZ_ENABLE_WAYLAND = "1";
+    SDL_VIDEODRIVER = "wayland";
   };
 
   # Waydroid with Bubblewrap Integration
@@ -114,6 +117,7 @@ in {
       --ro-bind /lib64 /lib64 \
       --symlink /lib /lib64 \
       --symlink /lib /usr/lib \
+      --ro-bind /run/user/$(id -u)/wayland-0 /run/user/$(id -u)/wayland-0 \
       /usr/bin/waydroid "$@"
   '';
 
