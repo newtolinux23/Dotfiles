@@ -9,9 +9,10 @@
 ;; ------------------------------
 ;; Fonts and Appearance
 ;; ------------------------------
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 20)
-      doom-variable-pitch-font (font-spec :family "Sans" :size 20) ; Enhanced variable pitch font
-      doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 24)
+(setq my-font "JetBrainsMono Nerd Font"
+      doom-font (font-spec :family my-font :size 20)
+      doom-variable-pitch-font (font-spec :family "Sans" :size 20)
+      doom-big-font (font-spec :family my-font :size 24)
       doom-theme 'doom-monokai-pro
       display-line-numbers-type t
       doom-modeline-icon t
@@ -29,57 +30,35 @@
 
 (defun my/set-default-text-scale ()
   "Set the default text scale."
-  (text-scale-set 0)) ;; Set default to 0 to avoid excessive zoom
+  (text-scale-set 0))
 (add-hook 'after-init-hook #'my/set-default-text-scale)
 
 ;; ------------------------------
 ;; Org Mode Configuration
 ;; ------------------------------
-(setq org-directory "~/org/"
-      org-startup-indented t
-      org-hide-leading-stars t
-      org-hide-emphasis-markers t)
-
-(setq-default fill-column 80)
-
 (use-package! org
   :defer t
+  :hook ((org-mode . org-bullets-mode)
+         (org-mode . flyspell-mode)
+         (org-mode . visual-fill-column-mode)
+         (org-mode . my/set-default-text-scale))
   :config
-  ;; Tangle Org Babel code blocks after saving if in Org mode
-  (add-hook 'after-save-hook
-            (lambda ()
-              (when (eq major-mode 'org-mode)
-                (org-babel-tangle 'append 'local)))))
+  (setq org-directory "~/org/"
+        org-startup-indented t
+        org-hide-leading-stars t
+        org-hide-emphasis-markers t
+        org-table-automatic-realign t
+        org-table-automatic-recalculate t
+        org-export-babel-evaluate t
+        org-confirm-babel-evaluate nil
+        org-bullets-bullet-list '("◉" "○" "●" "◆" "▶"))
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t)
-   (shell . t)))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (shell . t)))
 
-;; Org Bullets for better visual appearance
-(use-package! org-bullets
-  :hook (org-mode . org-bullets-mode)
-  :config
-  (setq org-bullets-bullet-list '("◉" "○" "●" "◆" "▶")))
-
-;; Enable Flyspell in Org mode for spell checking
-(add-hook 'org-mode-hook #'flyspell-mode)
-(setq ispell-dictionary "en_US")
-
-;; Enable auto-calculation in Org-mode tables
-(setq org-table-automatic-realign t)  ; Automatically realign tables after edits
-(setq org-table-automatic-recalculate t)  ; Automatically recalculate after edits
-(add-hook 'before-save-hook 'org-table-recalculate-buffer-tables)
-
-;; Custom function and keybinding to recalculate tables in Org mode
-(defun my/org-table-recalculate-at-point ()
-  "Recalculate the Org table if the point is within a table."
-  (interactive)
-  (when (org-at-table-p)
-    (org-table-recalculate t)))
-
-(with-eval-after-load 'org
-  (define-key org-mode-map (kbd "C-c C-r") #'my/org-table-recalculate-at-point))
+  (add-hook 'before-save-hook 'org-table-recalculate-buffer-tables))
 
 ;; ------------------------------
 ;; YASnippet Configuration
@@ -106,9 +85,9 @@
   :config
   (pdf-tools-install)
   (setq pdf-view-midnight-colors '("#ffffff" . "#000000")
-        pdf-view-resize-factor 1.1)
-  (setq-default pdf-view-display-size 'fit-page)
-  (add-hook 'pdf-view-mode-hook (lambda () (display-line-numbers-mode -1))))
+        pdf-view-resize-factor 1.1
+        pdf-view-display-size 'fit-page)
+  :hook (pdf-view-mode . (lambda () (display-line-numbers-mode -1))))
 
 (with-eval-after-load 'pdf-tools
   (map! :map pdf-view-mode-map
@@ -125,20 +104,6 @@
 ;; ------------------------------
 ;; LaTeX Configuration
 ;; ------------------------------
-(with-eval-after-load 'tex
-  (setq LaTeX-command "latex -shell-escape"
-        TeX-PDF-mode t
-        TeX-auto-save t
-        TeX-parse-self t
-        TeX-master nil
-        TeX-source-correlate-mode t               ; Enable SyncTeX
-        TeX-source-correlate-method 'synctex)
-  (add-hook 'TeX-mode-hook
-            (lambda ()
-              (add-to-list 'TeX-command-list
-                           '("XeLaTeX" "xelatex -interaction=nonstopmode %s"
-                             TeX-run-command t t :help "Run XeLaTeX")))))
-
 (use-package! ox-latex
   :after org
   :config
@@ -151,10 +116,9 @@
                                    ("bgcolor" "bg")
                                    ("fontsize" "\\footnotesize"))
         org-latex-pdf-process '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-                                "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f")))
-
-(setq org-export-babel-evaluate t)  ;; Enable evaluation of code blocks during export
-(setq org-confirm-babel-evaluate nil)  ;; Disable confirmation prompt for code block evaluation
+                                "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  (setq org-export-babel-evaluate t
+        org-confirm-babel-evaluate nil))
 
 ;; ------------------------------
 ;; Keybindings
@@ -170,9 +134,9 @@
       :desc "Flyspell correct" "ss" #'flyspell-correct-wrapper)
 
 (map! :leader
-      :desc "Increase text scale" "zi" #'text-scale-increase
+      :desc "Adjust text scale" "zi" #'text-scale-increase
       :desc "Decrease text scale" "zo" #'text-scale-decrease
-      :desc "Reset text scale" "zr" (lambda () (interactive) (text-scale-set 0)))
+      :desc "Adjust text scale" "za" #'text-scale-adjust)
 
 (map! :leader
       :desc "Magit Status" "g s" #'magit-status)
@@ -207,7 +171,8 @@
 ;; Native Compilation Settings
 ;; ------------------------------
 (setq native-comp-speed 2
-      native-comp-async-report-warnings-errors 'silent)
+      native-comp-async-report-warnings-errors 'silent
+      native-comp-deferred-compilation t)
 
 ;; ------------------------------
 ;; Ivy and Company Configuration
