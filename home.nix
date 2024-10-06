@@ -51,7 +51,6 @@ in {
  # Alacritty Configuration with Dracula Theme and Nerd Fonts
   xdg.configFile."alacritty/alacritty.toml".text = ''
     [window]
-    wayland = true
     opacity = 0.9
     decorations = "full"
 
