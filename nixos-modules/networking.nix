@@ -14,7 +14,7 @@
         peers = [
           {
             publicKey = "HYrJHiCFn5+dzDzr1RSHWHsbc0Cv8RhRaABNDl5Xd0A=";
-            allowedIPs = [ "0.0.0.0/0" ];  # Corrected by removing the comma
+            allowedIPs = [ "0.0.0.0/0" ];
             endpoint = "104.236.1.118:51820";
             persistentKeepalive = 25;
           }

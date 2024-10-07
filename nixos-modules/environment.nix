@@ -33,6 +33,7 @@
     brightnessctl
     bubblewrap
     cmake
+    clipit
     dejavu_fonts
     discount
     elegant-sddm
@@ -71,6 +72,7 @@
     networkmanagerapplet
     networkmanager
     obs-studio
+    ollama
     open-sans
     pavucontrol
     proxychains-ng
@@ -132,10 +134,9 @@
   # Fonts configuration with correct fetchURL
   fonts = {
     packages = with pkgs; [
-      fira-code
       font-awesome
-      google-fonts
-      nerdfonts
+      nerd-fonts-jetbrains-mono
+      fira-code
       source-code-pro
       (pkgs.fetchurl {
         url = "https://downloads.sourceforge.net/project/corefonts/the%20fonts/final/times32.exe";
@@ -146,7 +147,7 @@
 
   # Swap and kernel tweaks
   swapDevices = [ { device = "/swapfile"; size = 4096; } ];
-  boot.kernel.sysctl."vm.swappiness" = 10;
+  boot.kernel.sysctl."vm.swappiness" = 5;
   
   # Enable Flatpak and experimental Nix features
   services.flatpak.enable = true;
