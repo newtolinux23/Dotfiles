@@ -9,7 +9,7 @@
 ;; ------------------------------
 ;; Fonts and Appearance
 ;; ------------------------------
-(setq my-font "JetBrainsMono"
+(setq my-font "JetBrains Mono"  ;; Exact name as found in fc-list
       doom-font (font-spec :family my-font :size 20)
       doom-variable-pitch-font (font-spec :family "Sans" :size 20)
       doom-big-font (font-spec :family my-font :size 24)
@@ -23,11 +23,15 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
+;; Set transparency
 (set-frame-parameter (selected-frame) 'alpha '(98 98))
 (add-to-list 'default-frame-alist '(alpha 98 98))
+
+;; Maximize the frame on startup
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
+;; Set default text scale after initialization
 (defun my/set-default-text-scale ()
   "Set the default text scale."
   (text-scale-set 0))

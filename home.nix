@@ -55,7 +55,7 @@ in {
     decorations = "full"
 
     [font]
-    normal = { family = "FiraCode Nerd Font", style = "Regular" }
+    normal = { family = "JetBrains Nerd Font", style = "Mono" }
     size = 13.0
     offset = { x = 0, y = 0 }
 
