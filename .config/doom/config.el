@@ -9,7 +9,7 @@
 ;; ------------------------------
 ;; Fonts and Appearance
 ;; ------------------------------
-(setq my-font "JetBrainsMono Nerd Font"
+(setq my-font "JetBrainsMono"
       doom-font (font-spec :family my-font :size 20)
       doom-variable-pitch-font (font-spec :family "Sans" :size 20)
       doom-big-font (font-spec :family my-font :size 24)

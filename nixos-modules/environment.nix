@@ -69,6 +69,7 @@
     meson
     meslo-lgs-nf
     nerdfonts
+    jetbrains-mono
     networkmanagerapplet
     networkmanager
     obs-studio
@@ -135,14 +136,15 @@
   fonts = {
     packages = with pkgs; [
       font-awesome
-      nerd-fonts-jetbrains-mono
+      udev-gothic-nf
       fira-code
       source-code-pro
       (pkgs.fetchurl {
         url = "https://downloads.sourceforge.net/project/corefonts/the%20fonts/final/times32.exe";
         sha256 = "1aq7z3l46vwgqljvq9zfgkii6aivy00z1529qbjkspggqrg5jmnv"; # Corrected SHA256
-      })
-    ];
+     })
+   ];
+    
   };
 
   # Swap and kernel tweaks
