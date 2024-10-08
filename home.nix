@@ -135,4 +135,16 @@ in {
     }
     run_hook
   '';
+
+  # Adding required packages to resolve warnings
+  home.packages = with pkgs; [
+    xdg-desktop-portal
+    xdg-desktop-portal-wlr # Replace with gtk if needed
+    fuse
+    flatpak
+    lxd-lts
+    nixfmt-classic
+    nvtopPackages.full
+    rapidjson
+  ];
 }
