@@ -7,7 +7,7 @@ in {
   imports = [
     ./modules/hyprland.nix
     ./modules/waybar.nix
-    ./modules/applications.nix  # Include any additional modules as needed
+    ./modules/applications.nix 
   ];
 
   # Basic Home Manager Configuration
@@ -55,7 +55,7 @@ in {
     decorations = "full"
 
     [font]
-    normal = { family = "JetBrains Mono Nerd Font", style = "Regular" }
+    normal = { family = "JetBrains Mono Nerd Font", style = "Mono" }
     size = 13.0
     offset = { x = 0, y = 0 }
 
