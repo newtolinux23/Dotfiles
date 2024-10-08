@@ -17,7 +17,7 @@ in
       monitor=,preferred,auto,1.50
 
       # Set wallpaper
-      exec-once = swaybg -i /home/rob/.dotfiles/wallpapers/Staircase.png 
+      exec-once = swaybg -i ~/.dotfiles/wallpapers/Staircase.png 
       # Set programs
       $terminal = alacritty
       $fileManager = dolphin
