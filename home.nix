@@ -48,14 +48,14 @@ in {
     include "/nix/store/$(basename $(ls -d /nix/store/*-nano*/share/nano))/share/nano/html.nanorc"
   '';
 
- # Alacritty Configuration with Dracula Theme and Nerd Fonts
+  # Alacritty Configuration with Dracula Theme and Nerd Fonts
   xdg.configFile."alacritty/alacritty.toml".text = ''
     [window]
     opacity = 0.9
     decorations = "full"
 
     [font]
-    normal = { family = "JetBrains Nerd Font", style = "Mono" }
+    normal = { family = "JetBrains Mono Nerd Font", style = "Regular" }
     size = 13.0
     offset = { x = 0, y = 0 }
 
@@ -96,29 +96,6 @@ in {
     MOZ_ENABLE_WAYLAND = "1";
     SDL_VIDEODRIVER = "wayland";
   };
-
-  # Waydroid with Bubblewrap Integration
-  home.file."~/.local/bin/waydroid-bwrap.sh".text = ''
-    #!/bin/bash
-    bwrap \
-      --unshare-all \
-      --new-session \
-      --bind / / \
-      --dev-bind /dev /dev \
-      --proc /proc \
-      --ro-bind /sys /sys \
-      --tmpfs /tmp \
-      --tmpfs /run \
-      --dir /run/user/$(id -u) \
-      --bind $HOME/.local/share/waydroid $HOME/.local/share/waydroid \
-      --ro-bind /usr /usr \
-      --ro-bind /lib /lib \
-      --ro-bind /lib64 /lib64 \
-      --symlink /lib /lib64 \
-      --symlink /lib /usr/lib \
-      --ro-bind /run/user/$(id -u)/wayland-0 /run/user/$(id -u)/wayland-0 \
-      /usr/bin/waydroid "$@"
-  '';
 
   # Bash Configuration
   programs.bash = {
