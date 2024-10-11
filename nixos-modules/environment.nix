@@ -32,6 +32,7 @@
   environment.systemPackages = with pkgs; [
     brightnessctl
     bubblewrap
+    bleachbit
     cmake
     clipit
     dejavu_fonts
