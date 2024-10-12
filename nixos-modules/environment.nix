@@ -1,85 +1,44 @@
-# ~/.dotfiles/nixos-modules/environment.nix 
-{ config, pkgs, lib, ... }:
+# ~/.dotfiles/nixos-modules/environment.nix
+{ config, pkgs, ... }:
 
-let
-  # Define Wayland variables for reuse
-  waylandVars = {
-    QT_QPA_PLATFORM = "wayland";
-    MOZ_ENABLE_WAYLAND = "1";
-  };
-  # Custom font
-  customFont = pkgs.fetchurl {
-    url = "https://downloads.sourceforge.net/project/corefonts/the%20fonts/final/times32.exe";
-    sha256 = "1aq7z3l46vwgqljvq9zfgkii6aivy00z1529qbjkspggqrg5jmnv";
-  };
-in
 {
-  # Set timezone and locale
-  time.timeZone = "America/Chicago";
+  # Enable common container config files in /etc/containers
+  virtualisation.containers.enable = true;
   
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "en_US.UTF-8";
-      LC_IDENTIFICATION = "en_US.UTF-8";
-      LC_MEASUREMENT = "en_US.UTF-8";
-      LC_MONETARY = "en_US.UTF-8";
-      LC_NAME = "en_US.UTF-8";
-      LC_NUMERIC = "en_US.UTF-8";
-      LC_PAPER = "en_US.UTF-8";
-      LC_TELEPHONE = "en_US.UTF-8";
-      LC_TIME = "en_US.UTF-8";
+  virtualisation.podman = {
+    enable = true;
+
+    # Create a `docker` alias for podman, to use it as a drop-in replacement
+    dockerCompat = true;
+
+    # Allow containers under podman-compose to communicate
+    defaultNetwork.settings.dns_enabled = true;
+  };
+
+  # Enable OCI containers using Podman as the backend
+  virtualisation.oci-containers.backend = "podman";
+  virtualisation.oci-containers.containers = {
+    my-container = {
+      image = "nginx";
+      autoStart = true;
+      ports = [ "127.0.0.1:8080:80" ];
     };
   };
 
-  # Environment variables, optimized for Wayland and Qt
-  environment.variables = waylandVars // {
-    QT_QPA_PLATFORMTHEME = "qt5ct";
-    XDG_SESSION_TYPE = "wayland";
-    XDG_ICON_THEME = "breeze";
-  };
-
-  # Essential system packages, including Podman and Toolbox for rootless containers
+  # Useful development tools
   environment.systemPackages = with pkgs; [
-    # Development Tools
-    cmake gnumake meson git emacs tmux konsole toolbox podman
-    
-    # Fonts
-    dejavu_fonts fira-code nerdfonts meslo-lgs-nf jetbrains-mono open-sans source-code-pro
-    
-    # System Utilities
-    brightnessctl bubblewrap bleachbit fd htop lm_sensors shellcheck starship
-    
-    # Wayland Tools
-    swaybg waybar wayland-protocols wayland-utils wl-clipboard xwayland hyprland hyprpaper hyprcursor
-    
-    # Multimedia
-    obs-studio vlc okular webcamoid
-    
-    # Networking
-    tor tor-browser-bundle-bin wireguard-tools networkmanager networkmanagerapplet
-    
-    # Miscellaneous
-    firefox-wayland flatpak keepassxc kdeconnect kwin okular pavucontrol proxychains-ng pulseaudio 
-    python3 python311Packages.pip python312Packages.pip ripgrep rofi-wayland sddm sddm-chili-theme 
-    steam-run sudo texliveFull tlp unzip usbutils vlc webcamoid wget whatsapp-for-linux wineWow64Packages.fonts
-    xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-utils xfce.thunar xorg.xf86inputsynaptics 
-    xorg.xrandr xorg.xdpyinfo zoom-us
-    
-    # Icons and Themes
-    kdePackages.breeze-icons papirus-icon-theme material-design-icons kdePackages.qtstyleplugin-kvantum
-    libsForQt5.qt5ct libsForQt5.bismuth
+    podman
+    dive             # Tool to inspect Docker image layers
+    podman-tui       # Podman terminal UI
+    podman-compose   # Compose tool for Podman
+    docker-compose   # Docker Compose compatibility
   ];
 
-  # Fonts configuration
-  fonts = {
-    packages = with pkgs; [
-      font-awesome udev-gothic-nf fira-code source-code-pro customFont
-    ];
+  # Optional: Allow rootless containers for user 'rob'
+  users.users.rob = {
+    subUidRanges = [{ start = 100000; count = 65536; }];
+    subGidRanges = [{ start = 100000; count = 65536; }];
   };
-
-  # Configure user namespace for rootless containers
-  security.pam.services.login.extraPAMModules = [ "pam_namespace" ];
 
   # Allow unfree packages if necessary
   nixpkgs.config.allowUnfree = true;
@@ -91,16 +50,4 @@ in
     "vm.vfs_cache_pressure" = 50;
     "fs.inotify.max_user_watches" = 524288;
   };
-
-  # Enable experimental features for Nix and Waybar overlay
-  services.flatpak.enable = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  nixpkgs.overlays = [
-    (self: super: {
-      waybar = super.waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-      });
-    })
-  ];
 }
