@@ -1,7 +1,9 @@
-# ~/.dotfiles/nixos-modules/services.nix
 { config, pkgs, lib, ... }:
 
 {
+  # Disable PulseAudio as PipeWire will be used
+  hardware.pulseaudio.enable = false;
+  
   # Enable PipeWire with ALSA, PulseAudio, and JACK support
   services.pipewire = {
     enable = true;
@@ -22,41 +24,11 @@
 
   # Enable Hyprland as the Wayland compositor
   programs.hyprland.enable = true;
-
+  
   # Enable Waydroid for Android emulation
   virtualisation.waydroid.enable = true;
 
-  # Configure Podman containers to run as systemd services
-  virtualisation.oci-containers = {
-    backend = "podman";
-    containers = {
-      my-nginx = {
-        image = "nginx";
-        autoStart = true;
-        ports = [ "127.0.0.1:8080:80" ];
-      };
-    };
-  };
-
-  # Enable PAM module for rootless Podman
-  security.pam.services = {
-    login = {
-      extraModules = [ "pam_namespace" ];
-    };
-  };
-
-  # Enable Tor service
-  services.tor = {
-    enable = true;
-    settings = {
-      SocksPort = "9050";
-    };
-  };
-
-  # Enable polkit for authentication management
-  security.polkit.enable = true;
-
-  # Enable systemd service for Fanctl (fan control)
+  # Define systemd service for fanctl
   systemd.services.fanctl = {
     description = "Fanctl Service";
     after = [ "multi-user.target" ];
@@ -69,4 +41,46 @@
 
   # Enable timesyncd service for time synchronization
   services.timesyncd.enable = true;
+
+  # Enable Tor service with SOCKS port
+  services.tor = {
+    enable = true;
+    settings = {
+      SocksPort = "9050";
+    };
+  };
+
+  # Enable polkit for authentication management
+  security.polkit.enable = true;
+
+  # Define a systemd service to update SDDM avatars on boot
+  systemd.services."sddm-avatar" = {
+    description = "Service to copy or update user avatars at startup.";
+    wantedBy = [ "multi-user.target" ];
+    before = [ "sddm.service" ];
+    script = ''
+      set -eu
+      for user in /home/*; do
+          username=$(basename "$user")
+          if [ -f "$user/.face.icon" ]; then
+              if [ ! -f "/var/lib/AccountsService/icons/$username" ]; then
+                  cp "$user/.face.icon" "/var/lib/AccountsService/icons/$username"
+              else
+                  if [ "$user/.face.icon" -nt "/var/lib/AccountsService/icons/$username" ]; then
+                      cp "$user/.face.icon" "/var/lib/AccountsService/icons/$username"
+                  fi
+              fi
+          fi
+      done
+    '';
+    serviceConfig = {
+      Type = "simple";
+      User = "root";
+      StandardOutput = "journal+console";
+      StandardError = "journal+console";
+    };
+  };
+
+  # Ensure SDDM starts after the avatar service
+  systemd.services.sddm.after = [ "sddm-avatar.service" ];
 }
