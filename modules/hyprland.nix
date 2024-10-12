@@ -14,7 +14,7 @@ in
     systemd.enable = true;
 
     extraConfig = ''
-      monitor=,preferred,auto,1.50
+      monitor=,preferred,auto,1
 
       # Set wallpaper
       exec-once = swaybg -i ~/.dotfiles/wallpapers/Staircase.png 
