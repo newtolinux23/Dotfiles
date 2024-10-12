@@ -1,86 +1,48 @@
-{ config, pkgs, lib, ... }:
+# ~/.dotfiles/nixos-modules/environment.nix
+{ config, pkgs, ... }:
 
 {
-  # Disable PulseAudio as PipeWire will be used
-  hardware.pulseaudio.enable = false;
+  # Enable common container config files in /etc/containers
+  virtualisation.containers.enable = true;
   
-  # Enable PipeWire with ALSA, PulseAudio, and JACK support
-  services.pipewire = {
+  virtualisation.podman = {
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-    wireplumber.enable = true;
+
+    # Create a `docker` alias for podman, to use it as a drop-in replacement
+    dockerCompat = true;
+
+    # Allow containers under podman-compose to communicate
+    defaultNetwork.settings.dns_enabled = true;
   };
 
-  # Enable SDDM with Wayland and chili theme
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-    theme = "chili";
-    autoNumlock = true;
-  };
-
-  # Enable Hyprland as the Wayland compositor
-  programs.hyprland.enable = true;
-  
-  # Enable Waydroid for Android emulation
-  virtualisation.waydroid.enable = true;
-
-  # Define systemd service for fanctl
-  systemd.services.fanctl = {
-    description = "Fanctl Service";
-    after = [ "multi-user.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.fanctl}/bin/fanctl --config /etc/fanctl.conf";
-      Restart = "always";
+  # Enable OCI containers using Podman as the backend
+  virtualisation.oci-containers.backend = "podman";
+  virtualisation.oci-containers.containers = {
+    my-container = {
+      image = "nginx";
+      autoStart = true;
+      ports = [ "127.0.0.1:8080:80" ];
     };
   };
 
-  # Enable timesyncd service for time synchronization
-  services.timesyncd.enable = true;
+  # Useful development tools
+  environment.systemPackages = with pkgs; [
+    podman
+    dive             # Tool to inspect Docker image layers
+    podman-tui       # Podman terminal UI
+    podman-compose   # Compose tool for Podman
+    docker-compose   # Docker Compose compatibility
+  ];
 
-  # Enable Tor service with SOCKS port
-  services.tor = {
-    enable = true;
-    settings = {
-      SocksPort = "9050";
-    };
+  # Optional: Allow rootless containers for user 'rob'
+  users.users.rob = {
+    subUidRanges = [{ start = 100000; count = 65536; }];
+    subGidRanges = [{ start = 100000; count = 65536; }];
   };
 
-  # Enable polkit for authentication management
-  security.polkit.enable = true;
+  # Configure user namespace for rootless containers
+  security.pam.services.login.extraPAMModules = [ "pam_namespace" ];
 
-  # Define a systemd service to update SDDM avatars on boot
-  systemd.services."sddm-avatar" = {
-    description = "Service to copy or update user avatars at startup.";
-    wantedBy = [ "multi-user.target" ];
-    before = [ "sddm.service" ];
-    script = ''
-      set -eu
-      for user in /home/*; do
-          username=$(basename "$user")
-          if [ -f "$user/.face.icon" ]; then
-              if [ ! -f "/var/lib/AccountsService/icons/$username" ]; then
-                  cp "$user/.face.icon" "/var/lib/AccountsService/icons/$username"
-              else
-                  if [ "$user/.face.icon" -nt "/var/lib/AccountsService/icons/$username" ]; then
-                      cp "$user/.face.icon" "/var/lib/AccountsService/icons/$username"
-                  fi
-              fi
-          fi
-      done
-    '';
-    serviceConfig = {
-      Type = "simple";
-      User = "root";
-      StandardOutput = "journal+console";
-      StandardError = "journal+console";
-    };
-  };
-
-  # Ensure SDDM starts after the avatar service
-  systemd.services.sddm.after = [ "sddm-avatar.service" ];
+  # Allow unfree packages if necessary
+  nixpkgs.config.allowUnfree = true;
 }

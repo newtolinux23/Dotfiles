@@ -39,10 +39,10 @@ in
     XDG_ICON_THEME = "breeze";
   };
 
-  # Essential system packages, grouped by category
+  # Essential system packages, including Podman and Toolbox for rootless containers
   environment.systemPackages = with pkgs; [
     # Development Tools
-    cmake gnumake meson git emacs tmux konsole
+    cmake gnumake meson git emacs tmux konsole toolbox podman
     
     # Fonts
     dejavu_fonts fira-code nerdfonts meslo-lgs-nf jetbrains-mono open-sans source-code-pro
@@ -78,6 +78,12 @@ in
     ];
   };
 
+  # Configure user namespace for rootless containers
+  security.pam.services.login.extraPAMModules = [ "pam_namespace" ];
+
+  # Allow unfree packages if necessary
+  nixpkgs.config.allowUnfree = true;
+
   # Swap and kernel tweaks
   swapDevices = [ { device = "/swapfile"; size = 4096; options = [ "sw" "pri=5" ]; } ];
   boot.kernel.sysctl = {
@@ -86,13 +92,10 @@ in
     "fs.inotify.max_user_watches" = 524288;
   };
 
-  # Enable Flatpak and experimental Nix features
+  # Enable experimental features for Nix and Waybar overlay
   services.flatpak.enable = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  system.stateVersion = "24.05";
-
-  # Overlay for enabling Waybar experimental features
   nixpkgs.overlays = [
     (self: super: {
       waybar = super.waybar.overrideAttrs (oldAttrs: {
@@ -100,7 +103,4 @@ in
       });
     })
   ];
-
-  # Allow unfree packages if necessary
-  nixpkgs.config.allowUnfree = true;
 }
