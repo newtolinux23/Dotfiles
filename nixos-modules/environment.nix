@@ -32,40 +32,42 @@ in
     };
   };
 
-  # Environment variables, optimized for Wayland and Qt
+  # Environment variables, optimized for Wayland, Qt, and VAAPI
   environment.variables = waylandVars // {
     QT_QPA_PLATFORMTHEME = "qt5ct";
     XDG_SESSION_TYPE = "wayland";
     XDG_ICON_THEME = "breeze";
+    LIBVA_DRIVER_NAME = "iHD";  # Intel VAAPI driver for newer Intel GPUs
+    LIBVA_DRIVERS_PATH = "${pkgs.intel-media-driver}/lib/dri";  # Path to VAAPI drivers
   };
 
   # Essential system packages, grouped by category
   environment.systemPackages = with pkgs; [
     # Development Tools
     cmake gnumake meson git emacs tmux konsole
-    
+
     # Fonts
     dejavu_fonts fira-code nerdfonts meslo-lgs-nf jetbrains-mono open-sans source-code-pro
-    
+
     # System Utilities
     brightnessctl bubblewrap bleachbit fd htop lm_sensors shellcheck starship
-    
+
     # Wayland Tools
     swaybg waybar wayland-protocols wayland-utils wl-clipboard xwayland hyprland hyprpaper hyprcursor
-    
+
     # Multimedia
     obs-studio vlc okular webcamoid
-    
+
     # Networking
     tor tor-browser-bundle-bin wireguard-tools networkmanager networkmanagerapplet
-    
+
     # Miscellaneous
-    firefox-wayland flatpak keepassxc kdeconnect kwin okular pavucontrol proxychains-ng pulseaudio 
-    python3 python311Packages.pip python312Packages.pip ripgrep rofi-wayland sddm sddm-chili-theme 
+    firefox-wayland flatpak keepassxc kdeconnect kwin okular pavucontrol proxychains-ng pulseaudio
+    python3 python311Packages.pip python312Packages.pip ripgrep rofi-wayland sddm sddm-chili-theme
     steam-run sudo texliveFull tlp unzip usbutils vlc webcamoid wget whatsapp-for-linux wineWow64Packages.fonts
-    xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-utils xfce.thunar xorg.xf86inputsynaptics 
+    xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-utils xfce.thunar xorg.xf86inputsynaptics
     xorg.xrandr xorg.xdpyinfo zoom-us
-    
+
     # Icons and Themes
     kdePackages.breeze-icons papirus-icon-theme material-design-icons kdePackages.qtstyleplugin-kvantum
     libsForQt5.qt5ct libsForQt5.bismuth
@@ -74,6 +76,11 @@ in
     intel-media-driver  # Intel VAAPI driver for video decoding/encoding
     libva-utils         # Utility for VAAPI diagnostics
     mesa                # Required for OpenGL acceleration
+
+    # Vulkan for 3D acceleration (optional, but recommended for gaming and multimedia)
+    vulkan-loader
+    vulkan-tools
+    mesa-vulkan-drivers  # Intel Vulkan drivers for supported GPUs
   ];
 
   # Fonts configuration
