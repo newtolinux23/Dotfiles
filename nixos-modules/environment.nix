@@ -69,6 +69,11 @@ in
     # Icons and Themes
     kdePackages.breeze-icons papirus-icon-theme material-design-icons kdePackages.qtstyleplugin-kvantum
     libsForQt5.qt5ct libsForQt5.bismuth
+
+    # VAAPI for Intel GPU hardware acceleration
+    intel-media-driver  # Intel VAAPI driver for video decoding/encoding
+    libva-utils         # Utility for VAAPI diagnostics
+    mesa                # Required for OpenGL acceleration
   ];
 
   # Fonts configuration
