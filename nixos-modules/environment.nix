@@ -38,7 +38,7 @@ in
     XDG_SESSION_TYPE = "wayland";
     XDG_ICON_THEME = "breeze";
     LIBVA_DRIVER_NAME = "iHD";  # Intel VAAPI driver for newer Intel GPUs
-    LIBVA_DRIVERS_PATH = "${pkgs.intel-media-driver}/lib/dri";  # Path to VAAPI drivers
+    LIBVA_DRIVERS_PATH = "/nix/store/3rihr4l4xlggcczsbzqcjm1mmpvlzvq8-intel-media-driver-24.2.1/lib/dri";  # Exact path to iHD driver
   };
 
   # Essential system packages, grouped by category
@@ -76,11 +76,13 @@ in
     intel-media-driver  # Intel VAAPI driver for video decoding/encoding
     libva-utils         # Utility for VAAPI diagnostics
     mesa                # Required for OpenGL acceleration
+    libva    
 
     # Vulkan for 3D acceleration (optional, but recommended for gaming and multimedia)
     vulkan-loader
     vulkan-tools
     mesa.drivers  # Corrected package for Intel Vulkan drivers
+    firmwareLinuxNonfree
   ];
 
   # Fonts configuration
