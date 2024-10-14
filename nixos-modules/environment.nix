@@ -1,3 +1,4 @@
+# ~/.dotfiles/nixos-modules/environment.nix
 { config, pkgs, lib, ... }:
 
 let
@@ -15,7 +16,7 @@ in
 {
   # Set timezone and locale
   time.timeZone = "America/Chicago";
-  
+
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
@@ -47,7 +48,7 @@ in
     dejavu_fonts fira-code nerdfonts meslo-lgs-nf jetbrains-mono open-sans source-code-pro
     
     # System Utilities
-    brightnessctl bubblewrap bleachbit fd htop lm_sensors shellcheck starship podman toolbox
+    brightnessctl bubblewrap bleachbit fd htop lm_sensors shellcheck starship
     
     # Wayland Tools
     swaybg waybar wayland-protocols wayland-utils wl-clipboard xwayland hyprland hyprpaper hyprcursor
@@ -84,12 +85,6 @@ in
     "vm.vfs_cache_pressure" = 50;
     "fs.inotify.max_user_watches" = 524288;
   };
-
-  # Enable cgroups v2 (required for Podman)
-  boot.kernelParams = [ "cgroup_no_v1=all" "systemd.unified_cgroup_hierarchy=1" ];
-
-  # Enable user namespaces for Podman
-  # security.useUserNamespaces = true;
 
   # Enable Flatpak and experimental Nix features
   services.flatpak.enable = true;

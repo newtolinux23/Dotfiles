@@ -1,6 +1,16 @@
+# ~/.dotfiles/nixos-modules/services.nix
 { config, pkgs, lib, ... }:
 
 {
+  # Intel video driver configuration
+  services.xserver.videoDrivers = [ "intel" ];
+  
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+
   # Disable PulseAudio as PipeWire will be used
   hardware.pulseaudio.enable = false;
   
