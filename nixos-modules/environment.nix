@@ -44,7 +44,7 @@ in
   # Essential system packages, grouped by category
   environment.systemPackages = with pkgs; [
     # Development Tools
-    cmake gnumake meson git emacs tmux konsole
+    cmake gnumake git emacs tmux konsole
 
     # Fonts
     dejavu_fonts fira-code nerdfonts meslo-lgs-nf jetbrains-mono open-sans source-code-pro
@@ -56,7 +56,7 @@ in
     swaybg waybar wayland-protocols wayland-utils wl-clipboard xwayland hyprland hyprpaper hyprcursor
 
     # Multimedia
-    obs-studio vlc okular webcamoid
+    obs-studio vlc
 
     # Networking
     tor tor-browser-bundle-bin wireguard-tools networkmanager networkmanagerapplet
@@ -64,7 +64,7 @@ in
     # Miscellaneous
     firefox-wayland flatpak keepassxc kdeconnect kwin okular pavucontrol proxychains-ng pulseaudio
     python3 python311Packages.pip python312Packages.pip ripgrep rofi-wayland sddm sddm-chili-theme
-    steam-run sudo texliveFull tlp unzip usbutils vlc webcamoid wget whatsapp-for-linux wineWow64Packages.fonts
+    sudo texliveFull tlp unzip usbutils vlc webcamoid wget whatsapp-for-linux wineWow64Packages.fonts
     xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-utils xfce.thunar xorg.xf86inputsynaptics
     xorg.xrandr xorg.xdpyinfo zoom-us
 
@@ -80,7 +80,7 @@ in
     # Vulkan for 3D acceleration (optional, but recommended for gaming and multimedia)
     vulkan-loader
     vulkan-tools
-    mesa-vulkan-drivers  # Intel Vulkan drivers for supported GPUs
+    mesa.drivers  # Corrected package for Intel Vulkan drivers
   ];
 
   # Fonts configuration
