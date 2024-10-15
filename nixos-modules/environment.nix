@@ -56,7 +56,7 @@ in
     swaybg waybar wayland-protocols wayland-utils wl-clipboard xwayland hyprland hyprpaper hyprcursor
 
     # Multimedia
-    obs-studio vlc
+    vlc mpv obs-studio
 
     # Networking
     tor tor-browser-bundle-bin wireguard-tools networkmanager networkmanagerapplet
@@ -76,12 +76,15 @@ in
     intel-media-driver  # Intel VAAPI driver for video decoding/encoding
     libva-utils         # Utility for VAAPI diagnostics
     mesa                # Required for OpenGL acceleration
-    libva    
+    libva               # VAAPI library for video acceleration
+    libdrm              # Direct Rendering Manager
 
     # Vulkan for 3D acceleration (optional, but recommended for gaming and multimedia)
     vulkan-loader
     vulkan-tools
-    mesa.drivers  # Corrected package for Intel Vulkan drivers
+    mesa.drivers        # Corrected package for Intel Vulkan drivers
+
+    # Nonfree firmware
     firmwareLinuxNonfree
   ];
 
