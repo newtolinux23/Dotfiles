@@ -109,7 +109,7 @@ in {
       shm = "sudo nano home.nix";
       nm = "systemctl restart NetworkManager.service";
       ce = "cat ~/.dotfiles/nixos-modules/environment.nix";
-      se = "sudo nano ~/.dotfiles/nixos-modules/environment.nix"
+      se = "sudo nano ~/.dotfiles/nixos-modules/environment.nix";
       ga = "git add .";
       gc = "git commit -m 'Cleaning up things'";
       gs = "git stash";
