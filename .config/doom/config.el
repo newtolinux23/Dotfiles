@@ -105,6 +105,13 @@
         "f" #'pdf-view-scroll-up-or-previous-page
         "d" #'pdf-view-dark-minor-mode))
 
+;; Customize how PDFs are displayed to avoid multiple windows
+(setq display-buffer-alist
+      '(("\\*PDF.*\\*"
+         (display-buffer-reuse-window display-buffer-at-bottom)
+         (reusable-frames . visible)
+         (window-height . 0.4))))
+
 ;; ------------------------------
 ;; LaTeX Configuration
 ;; ------------------------------

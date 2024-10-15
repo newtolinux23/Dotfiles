@@ -50,7 +50,7 @@ in
     dejavu_fonts fira-code nerdfonts meslo-lgs-nf jetbrains-mono open-sans source-code-pro
 
     # System Utilities
-    brightnessctl bubblewrap bleachbit fd htop lm_sensors shellcheck starship
+    brightnessctl bubblewrap bleachbit fd htop lm_sensors shellcheck starship ispell
 
     # Wayland Tools
     swaybg waybar wayland-protocols wayland-utils wl-clipboard xwayland hyprland hyprpaper hyprcursor
