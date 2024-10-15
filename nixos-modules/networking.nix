@@ -36,7 +36,7 @@
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 80 443 8443 51820 9050 ];  # Open TCP ports
+      allowedTCPPorts = [ 22 80 443 8443 51820 9050 53 9050 ];  # Open TCP ports
       allowedUDPPorts = [ 123 ];  # Open UDP port 123
       interfaces = {
         "eth0" = { allowedTCPPorts = [ 8080 51820 9050 ]; };  # Open additional ports on eth0
