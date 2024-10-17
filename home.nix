@@ -115,6 +115,8 @@ in {
       gs = "git stash";
       gp = "git push -u origin main";
       waydroid = "~/.local/bin/waydroid-bwrap.sh";
+      proxychains4="proxychains4 -f ~/.proxychains.conf";
+      proxy = "proxychains4 -f ~/.proxychains.conf firefox";
     };
     initExtra = ''
       export PATH="$HOME/.config/emacs/bin:$PATH"

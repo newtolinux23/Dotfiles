@@ -56,15 +56,15 @@ in
     swaybg waybar wayland-protocols wayland-utils wl-clipboard xwayland hyprland hyprpaper hyprcursor
 
     # Multimedia
-    vlc mpv obs-studio
+    vlc mpv 
 
     # Networking
     tor tor-browser-bundle-bin wireguard-tools networkmanager networkmanagerapplet
 
     # Miscellaneous
     firefox-wayland flatpak keepassxc kdeconnect kwin okular pavucontrol proxychains-ng pulseaudio
-    python3 python311Packages.pip python312Packages.pip ripgrep rofi-wayland sddm sddm-chili-theme
-    sudo texliveFull tlp unzip usbutils vlc webcamoid wget whatsapp-for-linux wineWow64Packages.fonts
+    python3 python311Packages.pip python312Packages.pip ripgrep sddm sddm-chili-theme
+    sudo texliveFull tlp unzip usbutils webcamoid wget whatsapp-for-linux wineWow64Packages.fonts
     xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-utils xfce.thunar xorg.xf86inputsynaptics
     xorg.xrandr xorg.xdpyinfo zoom-us
 

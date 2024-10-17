@@ -11,6 +11,8 @@
     driSupport32Bit = true;
   };
 
+  networking.nameservers = [ "127.0.0.1" ];
+
   # Disable PulseAudio as PipeWire will be used
   hardware.pulseaudio.enable = false;
   
