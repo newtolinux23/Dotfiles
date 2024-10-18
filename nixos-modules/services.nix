@@ -40,7 +40,7 @@
   # Enable Waydroid for Android emulation
   virtualisation.waydroid.enable = true;
 
-  # Enable Docker
+  # Enable Docker (This block remains the same)
   services.docker = {
     enable = true;
     extraOptions = "--log-driver=journald";  # Optional: Set log driver
@@ -108,7 +108,4 @@
 
   # Ensure SDDM starts after the avatar service
   systemd.services.sddm.after = [ "sddm-avatar.service" ];
-
-  # Remove Podman if it's installed
-  environment.systemPackages = lib.remove [ pkgs.podman ] environment.systemPackages;
 }

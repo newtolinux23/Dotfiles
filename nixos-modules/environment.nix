@@ -42,7 +42,7 @@ in
   };
 
   # Essential system packages, grouped by category
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = lib.remove [ pkgs.podman ] (with pkgs; [
     # Development Tools
     cmake gnumake git emacs tmux konsole
 
@@ -56,7 +56,7 @@ in
     swaybg waybar wayland-protocols wayland-utils wl-clipboard xwayland hyprland hyprpaper hyprcursor
 
     # Multimedia
-    vlc mpv 
+    vlc mpv
 
     # Networking
     tor tor-browser-bundle-bin wireguard-tools networkmanager networkmanagerapplet
@@ -86,7 +86,7 @@ in
 
     # Nonfree firmware
     firmwareLinuxNonfree
-  ];
+  ]);
 
   # Fonts configuration
   fonts = {
@@ -121,3 +121,4 @@ in
   # Allow unfree packages if necessary
   nixpkgs.config.allowUnfree = true;
 }
+
