@@ -4,7 +4,7 @@
 {
   # Intel video driver configuration
   services.xserver.videoDrivers = [ "intel" ];
-  
+
   hardware.opengl = {
     enable = true;
     driSupport = true;
@@ -15,7 +15,7 @@
 
   # Disable PulseAudio as PipeWire will be used
   hardware.pulseaudio.enable = false;
-  
+
   # Enable PipeWire with ALSA, PulseAudio, and JACK support
   services.pipewire = {
     enable = true;
@@ -36,9 +36,22 @@
 
   # Enable Hyprland as the Wayland compositor
   programs.hyprland.enable = true;
-  
+
   # Enable Waydroid for Android emulation
   virtualisation.waydroid.enable = true;
+
+  # Enable Docker
+  services.docker = {
+    enable = true;
+    extraOptions = "--log-driver=journald";  # Optional: Set log driver
+  };
+
+  # Add user to the Docker group to allow running Docker without sudo
+  users.groups.docker = { };
+  users.users.rob = {
+    isNormalUser = true;
+    extraGroups = [ "docker" ];  # Add user to the Docker group
+  };
 
   # Define systemd service for fanctl
   systemd.services.fanctl = {
@@ -95,4 +108,7 @@
 
   # Ensure SDDM starts after the avatar service
   systemd.services.sddm.after = [ "sddm-avatar.service" ];
+
+  # Remove Podman if it's installed
+  environment.systemPackages = lib.remove [ pkgs.podman ] environment.systemPackages;
 }
