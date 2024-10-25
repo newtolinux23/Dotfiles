@@ -42,9 +42,9 @@ in
   };
 
   # Essential system packages, grouped by category
-  environment.systemPackages = lib.remove [ pkgs.podman ] (with pkgs; [
+  environment.systemPackages = with pkgs; [
     # Development Tools
-    cmake gnumake git emacs tmux konsole
+    cmake gnumake git emacs tmux konsole docker docker-compose
 
     # Fonts
     dejavu_fonts fira-code nerdfonts meslo-lgs-nf jetbrains-mono open-sans source-code-pro
@@ -56,7 +56,7 @@ in
     swaybg waybar wayland-protocols wayland-utils wl-clipboard xwayland hyprland hyprpaper hyprcursor
 
     # Multimedia
-    vlc mpv
+    vlc mpv 
 
     # Networking
     tor tor-browser-bundle-bin wireguard-tools networkmanager networkmanagerapplet
@@ -78,6 +78,7 @@ in
     mesa                # Required for OpenGL acceleration
     libva               # VAAPI library for video acceleration
     libdrm              # Direct Rendering Manager
+    intel-vaapi-driver
 
     # Vulkan for 3D acceleration (optional, but recommended for gaming and multimedia)
     vulkan-loader
@@ -86,7 +87,7 @@ in
 
     # Nonfree firmware
     firmwareLinuxNonfree
-  ]);
+  ];
 
   # Fonts configuration
   fonts = {
@@ -117,8 +118,8 @@ in
       });
     })
   ];
+  virtualisation.docker.enable = true;
 
   # Allow unfree packages if necessary
   nixpkgs.config.allowUnfree = true;
 }
-

@@ -7,6 +7,5 @@
     ./nixos-modules/services.nix
     ./nixos-modules/environment.nix
     ./nixos-modules/users.nix
-    ./nixos-modules/docker.nix  
   ];
 }
