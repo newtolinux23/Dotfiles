@@ -44,7 +44,7 @@ in
   # Essential system packages, grouped by category
   environment.systemPackages = with pkgs; [
     # Development Tools
-    cmake gnumake git emacs tmux konsole docker docker-compose
+    cmake gnumake git emacs tmux konsole docker docker-compose preload
 
     # Fonts
     dejavu_fonts fira-code nerdfonts meslo-lgs-nf jetbrains-mono open-sans source-code-pro
@@ -64,7 +64,7 @@ in
     # Miscellaneous
     firefox-wayland flatpak keepassxc kdeconnect kwin okular pavucontrol proxychains-ng pulseaudio
     python3 python311Packages.pip python312Packages.pip ripgrep sddm sddm-chili-theme
-    sudo texliveFull tlp unzip usbutils webcamoid wget whatsapp-for-linux wineWow64Packages.fonts
+    sudo texliveFull tlp unzip usbutils webcamoid wget wineWow64Packages.fonts
     xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-utils xfce.thunar xorg.xf86inputsynaptics
     xorg.xrandr xorg.xdpyinfo zoom-us
 

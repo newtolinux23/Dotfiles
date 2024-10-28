@@ -51,6 +51,8 @@
     };
   };
 
+  services.preload.enable = true;
+
   # Enable timesyncd service for time synchronization
   services.timesyncd.enable = true;
 
