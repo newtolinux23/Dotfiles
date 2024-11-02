@@ -104,6 +104,7 @@ in {
       ll = "ls -l";
       ".." = "cd ..";
       dt = "cd ~/.dotfiles";
+      showcmds = "history | awk '{$1=\"\"; sub(/^ */, \"\"); print}' | sort | uniq -c | sort -nr | head -25";
       hm = "home-manager switch --flake .";
       ns = "sudo nixos-rebuild switch --flake .";
       shm = "sudo nano home.nix";
