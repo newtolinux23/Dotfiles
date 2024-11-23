@@ -1,22 +1,9 @@
-# ~/.dotfiles/nixos-modules/environment.nix
 { config, pkgs, lib, ... }:
 
-let
-  # Define Wayland variables for reuse
-  waylandVars = {
-    QT_QPA_PLATFORM = "wayland";
-    MOZ_ENABLE_WAYLAND = "1";
-  };
-  # Custom font for additional use
-  customFont = pkgs.fetchurl {
-    url = "https://downloads.sourceforge.net/project/corefonts/the%20fonts/final/times32.exe";
-    sha256 = "1aq7z3l46vwgqljvq9zfgkii6aivy00z1529qbjkspggqrg5jmnv";
-  };
-in
 {
   # Set timezone and locale
   time.timeZone = "America/Chicago";
-
+  
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
@@ -32,84 +19,148 @@ in
     };
   };
 
-  # Environment variables, optimized for Wayland, Qt, and VAAPI
-  environment.variables = waylandVars // {
+  # Environment variables, optimized for Wayland and Qt
+  environment.variables = {
     QT_QPA_PLATFORMTHEME = "qt5ct";
+    QT_QPA_PLATFORM = "wayland"; # Switched to Wayland for better performance
     XDG_SESSION_TYPE = "wayland";
     XDG_ICON_THEME = "breeze";
-    LIBVA_DRIVER_NAME = "iHD";  # Intel VAAPI driver for newer Intel GPUs
-    LIBVA_DRIVERS_PATH = "/nix/store/3rihr4l4xlggcczsbzqcjm1mmpvlzvq8-intel-media-driver-24.2.1/lib/dri";  # Path to iHD driver
+    MOZ_ENABLE_WAYLAND = "1"; # For Firefox under Wayland
   };
 
-  # System packages
+  # Essential system packages
   environment.systemPackages = with pkgs; [
-    cmake gnumake git emacs tmux konsole docker docker-compose preload
-    dejavu_fonts fira-code nerdfonts meslo-lgs-nf jetbrains-mono open-sans source-code-pro
-    brightnessctl bubblewrap bleachbit fd htop lm_sensors shellcheck starship ispell
-    swaybg waybar wayland-protocols wayland-utils wl-clipboard hyprland hyprpaper hyprcursor
-    vlc mpv udevil udisks2
-    tor tor-browser-bundle-bin wireguard-tools networkmanager networkmanagerapplet
-    firefox-wayland flatpak keepassxc kdeconnect kwin okular pavucontrol proxychains-ng pulseaudio
-    python3 python311Packages.pip python312Packages.pip ripgrep sudo texliveFull unzip usbutils webcamoid wget wineWow64Packages.fonts
-    xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-utils xfce.thunar xorg.xf86inputsynaptics
-    xorg.xrandr xorg.xdpyinfo zoom-us
-    kdePackages.breeze-icons papirus-icon-theme material-design-icons kdePackages.qtstyleplugin-kvantum
-    libsForQt5.qt5ct libsForQt5.bismuth
-    intel-media-driver libva-utils mesa libva libdrm intel-vaapi-driver
-    vulkan-loader vulkan-tools mesa.drivers
+    brightnessctl
+    bubblewrap
+    cmake
+    dejavu_fonts
+    discount
+    eww
+    emacs
+    fanctl
+    fd
+    firefox-wayland
+    fira-code
+    flatpak
+    git
+    gnumake
+    gtk3
+    gtk4
+    htop
+    hyprland
+    hyprpaper
+    hyprcursor
+    hyprpicker
+    kdePackages.breeze-icons
+    kdePackages.qgpgme
+    keepassxc
+    konsole
+    kdeconnect
+    okular
+    libsForQt5.kmail
+    libsForQt5.bismuth
+    libsForQt5.kamoso
+    libsForQt5.dolphin
+    libinput
+    libxkbcommon
+    linuxKernel.packages.linux_zen.facetimehd
+    lm_sensors
+    meson
+    meslo-lgs-nf
+    nerdfonts
+    networkmanagerapplet
+    networkmanager
+    obs-studio
+    open-sans
+    pavucontrol
+    proxychains-ng
+    pulseaudio
+    python3Packages.openai
+    python3Packages.click
+    python3Packages.requests
+    python3
+    python312Packages.pip
+    qt5.qtwayland
+    qt6.qmake
+    qt6.qtwayland
+    ripgrep
+    rofi-wayland
+    sddm
+    sddm-chili-theme
+    shellcheck
+    source-code-pro
+    starship
+    steam-run
+    sudo
+    swaybg
+    texliveFull
+    tlp
+    tmux
+    tor
+    tor-browser
+    unzip
+    usbutils
+    vlc
+    waybar
+    wayland
+    wayland-protocols
+    wayland-utils
+    wl-clipboard
+    webcamoid
+    wget
+    wineWowPackages.full
+    wireguard-tools
+    wlroots
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-hyprland
+    xdg-utils
+    xorg.xf86inputsynaptics
+    xorg.xrandr
+    xorg.xdpyinfo
+    xwayland
+    zoom-us
+    # Networking and Proxy Tools
+    papirus-icon-theme
+    material-design-icons
+    kdePackages.qtstyleplugin-kvantum
+    libsForQt5.qt5ct
+
+    # VAAPI for Intel GPU hardware acceleration
+    intel-media-driver
+    libva-utils
+    mesa
+    libva
+    libdrm
+
+    # Vulkan for 3D acceleration (optional, but recommended for gaming and multimedia)
+    vulkan-loader
+    vulkan-tools
+
+    # Nonfree firmware
     firmwareLinuxNonfree
   ];
 
-  # Fonts configuration
-  fonts = {
-    packages = with pkgs; [
-      font-awesome udev-gothic-nf fira-code source-code-pro customFont
-    ];
-  };
-
   # Swap and kernel tweaks
-  swapDevices = [ { device = "/swapfile"; size = 4096; options = [ "sw" "pri=5" ]; } ];
-  boot.kernel.sysctl = {
-    "vm.swappiness" = 5;
-    "vm.vfs_cache_pressure" = 50;
-    "fs.inotify.max_user_watches" = 524288;
-  };
-
+  swapDevices = [ { device = "/swapfile"; size = 4096; } ];
+  boot.kernel.sysctl."vm.swappiness" = 10;
+  
   # Enable Flatpak and experimental Nix features
   services.flatpak.enable = true;
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # Automount USB drives with a custom service
-  services.udisks2.enable = true;
-  systemd.user.services.automount-usb = {
-    description = "Automount USB drives";
-    serviceConfig = {
-      ExecStart = "${pkgs.udiskie}/bin/udiskie --no-tray --automount";
-    };
-    wantedBy = [ "default.target" ];
-  };
-
-  # Configure SDDM and apply a theme
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.sddm.theme = "chili";  # Replace 'chili' with your desired theme
 
   system.stateVersion = "24.05";
 
-  # Overlay to remove duplicate files from Papirus icon theme to avoid collisions
+  # Overlay for enabling Waybar experimental features
   nixpkgs.overlays = [
     (self: super: {
-      papirus-icon-theme = super.papirus-icon-theme.overrideAttrs (oldAttrs: {
-        postInstall = ''
-          # Remove conflicting icons shared with breeze-icons
-          rm -rf $out/share/icons/breeze/devices/22@3x/*.svg
-          rm -rf $out/share/icons/breeze/index.theme
-        '';
+      waybar = super.waybar.overrideAttrs (oldAttrs: {
+        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
       });
     })
   ];
 
-  virtualisation.docker.enable = true;
-
-  # Allow unfree packages if necessary
+  # Allow unfree and insecure packages if necessary
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowInsecure = true;
 }
