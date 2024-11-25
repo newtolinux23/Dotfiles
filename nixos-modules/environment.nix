@@ -60,7 +60,6 @@
     libsForQt5.kmail
     libsForQt5.bismuth
     libsForQt5.kamoso
-    libsForQt5.dolphin
     libinput
     libxkbcommon
     linuxKernel.packages.linux_zen.facetimehd
@@ -68,6 +67,7 @@
     meson
     meslo-lgs-nf
     nerdfonts
+    cinnamon.nemo
     networkmanagerapplet
     networkmanager
     obs-studio
