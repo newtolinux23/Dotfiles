@@ -13,7 +13,7 @@ in {
   # Basic Home Manager Configuration
   home.username = "rob";
   home.homeDirectory = "/home/rob";
-  home.stateVersion = "24.05";
+  home.stateVersion = "24.11";
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

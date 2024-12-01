@@ -31,6 +31,7 @@
   # Essential system packages
   environment.systemPackages = with pkgs; [
     brightnessctl
+    kdePackages.dolphin-plugins
     bubblewrap
     cmake
     dejavu_fonts
@@ -57,7 +58,7 @@
     konsole
     kdeconnect
     okular
-    libsForQt5.kmail
+    libsForQt5.dolphin
     libsForQt5.bismuth
     libsForQt5.kamoso
     libinput
@@ -67,11 +68,9 @@
     meson
     meslo-lgs-nf
     nerdfonts
-    cinnamon.nemo
     networkmanagerapplet
     networkmanager
     obs-studio
-    open-sans
     pavucontrol
     proxychains-ng
     pulseaudio
@@ -149,7 +148,7 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.11";
 
   # Overlay for enabling Waybar experimental features
   nixpkgs.overlays = [
