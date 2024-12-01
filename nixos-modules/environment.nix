@@ -56,7 +56,6 @@
     kdePackages.qgpgme
     keepassxc
     konsole
-    kdeconnect
     okular
     libsForQt5.dolphin
     libsForQt5.bismuth

@@ -5,11 +5,11 @@
   # Intel video driver configuration
   services.xserver.videoDrivers = [ "intel" ];
   
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
+  #hardware.opengl = {
+   # enable = true;
+   # driSupport = true;
+   # driSupport32Bit = true;
+  #};
 
   networking.nameservers = [ "127.0.0.1" ];
 
