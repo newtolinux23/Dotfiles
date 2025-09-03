@@ -1,53 +1,51 @@
 ;; -*- no-byte-compile: t; -*-
-;;; $DOOMDIR/packages.el
+;;; ~/.doom.d/packages.el
 
-;; To install a package with Doom you must declare them here and run 'doom sync'
-;; on the command line, then restart Emacs for the changes to take effect -- or
-;; use 'M-x doom/reload'.
+;; === UI Enhancements ===
+(package! doom-themes)
+(package! dracula-theme)
+(package! all-the-icons)
+(package! dashboard)
 
-;; To install packages from MELPA, ELPA, or emacsmirror:
-;; (package! some-package)
-
-;; To install a package directly from a remote git repo, specify a `:recipe`:
-;; (package! another-package
-;;   :recipe (:host github :repo "username/repo"))
-
-;; If the package is located in a subdirectory of the repo, specify `:files`:
-;; (package! this-package
-;;   :recipe (:host github :repo "username/repo"
-;;   :files ("some-file.el" "src/lisp/*.el")))
-
-;; To disable a package included with Doom:
-;; (package! builtin-package :disable t)
-
-;; Override the recipe of a built-in package:
-;; (package! builtin-package :recipe (:nonrecursive t))
-;; (package! builtin-package-2 :recipe (:repo "myfork/package"))
-
-;; Specify a `:branch` to install from a particular branch or tag:
-;; (package! builtin-package :recipe (:branch "develop"))
-
-;; Use `:pin` to specify a particular commit to install:
-;; (package! builtin-package :pin "1a2b3c4d5e")
-
-;; Unpin packages to allow updates:
-;; (unpin! pinned-package)
-;; (unpin! pinned-package another-pinned-package)
-;; (unpin! t)
-
-;; Package declarations
-(package! doom-themes)               ; Themes for Doom Emacs
-(package! dracula-theme)             ; Dracula theme
-(package! all-the-icons)             ; Icons for various modes
-(package! pdf-tools)                 ; PDF tools for Emacs
-(package! flyspell-correct)          ; Correction tool for Flyspell
-(package! flyspell-correct-ivy)      ; Ivy interface for Flyspell correction
-(package! org-tanglesync)            ; Synchronization for Org Babel tangling
-(package! company)                   ; Completion backend
-(package! dashboard)                 ; Dashboard for Emacs
-(package! visual-fill-column)
-(package! pandoc-mode)
-(package! writegood-mode)
+;; === Writing & Focus ===
+(package! writeroom-mode)
 (package! focus)
-(package! org-bullets)
+(package! olivetti)
+
+;; === Org-mode Enhancements ===
 (package! org-modern)
+(package! org-roam)
+(package! org-roam-ui)
+(package! org-noter)
+(package! org-tanglesync)
+(package! org-pandoc-import
+  :recipe (:host github :repo "tecosaur/org-pandoc-import"))
+
+;; === LaTeX & PDF Tools ===
+(package! auctex)
+(package! auctex-latexmk)
+(package! cdlatex)
+(package! citar)
+(package! citar-org-roam)
+(package! pdf-tools)
+
+;; === Spell Checking & Grammar ===
+(package! flyspell-correct)
+(package! flyspell-correct-ivy)
+(package! languagetool)
+
+;; === Markdown & Export Tools ===
+(package! markdown-mode)
+(package! grip-mode)
+
+;; === File Search & Navigation ===
+(package! consult)
+(package! consult-org-roam)
+(package! embark)
+(package! marginalia)
+
+;; === Version Control ===
+(package! magit)
+
+;; === Completion ===
+(package! company)
