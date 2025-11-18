@@ -19,7 +19,7 @@
             (add-hook 'after-save-hook #'my/org-babel-tangle-on-save 'append 'local)))
 
 (setq pdf-view-midnight-colors '("black" . "white"))
-(add-hook 'pdf-view-mode-hook (lambda () (pdf-view-midnight-minor-mode -1)))
+(add-hook 'pdf-view-mode-hook (lambda () (pdf-view-midnight-minor-mode 0)))
 
 ;; ------------------------------
 ;; Fonts and Appearance
@@ -28,7 +28,7 @@
       doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font" :size 12)
       doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 16))
 
-(setq default-frame-alist '((font . "JetBrainsMono Nerd Font-16") (height . 50) (width . 100)))
+(setq default-frame-alist '((height . 50) (width . 100)))
 
 ;; ------------------------------
 ;; Theme

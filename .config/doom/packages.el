@@ -45,7 +45,5 @@
 (package! marginalia)
 
 ;; === Version Control ===
-(package! magit)
 
 ;; === Completion ===
-(package! company)
