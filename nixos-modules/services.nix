@@ -5,16 +5,12 @@
   # Intel video driver configuration
   services.xserver.videoDrivers = [ "intel" ];
   
-  #hardware.opengl = {
-   # enable = true;
-   # driSupport = true;
-   # driSupport32Bit = true;
-  #};
+  hardware.opengl = {
+   enable = true;
+   driSupport = true;
+   driSupport32Bit = true;
+  };
 
-  networking.nameservers = [ "127.0.0.1" ];
-
-  # Disable PulseAudio as PipeWire will be used
-  hardware.pulseaudio.enable = false;
   
   # Enable PipeWire with ALSA, PulseAudio, and JACK support
   services.pipewire = {
@@ -40,16 +36,17 @@
   # Enable Waydroid for Android emulation
   virtualisation.waydroid.enable = true;
 
+  # The 'fanctl' service is commented out because the 'fanctl' package is not in Nixpkgs.
   # Define systemd service for fanctl
-  systemd.services.fanctl = {
-    description = "Fanctl Service";
-    after = [ "multi-user.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.fanctl}/bin/fanctl --config /etc/fanctl.conf";
-      Restart = "always";
-    };
-  };
+  # systemd.services.fanctl = {
+  #   description = "Fanctl Service";
+  #   after = [ "multi-user.target" ];
+  #   wantedBy = [ "multi-user.target" ];
+  #   serviceConfig = {
+  #     ExecStart = "${pkgs.fanctl}/bin/fanctl --config /etc/fanctl.conf";
+  #     Restart = "always";
+  #   };
+  # };
 
   services.preload.enable = true;
 

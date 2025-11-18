@@ -38,7 +38,6 @@
     discount
     eww
     emacs
-    fanctl
     fd
     firefox-wayland
     fira-code
@@ -72,7 +71,6 @@
     obs-studio
     pavucontrol
     proxychains-ng
-    pulseaudio
     python3Packages.openai
     python3Packages.click
     python3Packages.requests

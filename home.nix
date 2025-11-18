@@ -41,11 +41,11 @@ in {
     ".config/doom/custom.el".source = "${dotfiles}/.config/doom/custom.el";
   };
 
-  # Nano syntax highlighting configuration
-  home.file."~/.nanorc".text = ''
-    include "/nix/store/$(basename $(ls -d /nix/store/*-nano*/share/nano))/share/nano/markdown.nanorc"
-    include "/nix/store/$(basename $(ls -d /nix/store/*-nano*/share/nano))/share/nano/tex.nanorc"
-    include "/nix/store/$(basename $(ls -d /nix/store/*-nano*/share/nano))/share/nano/html.nanorc"
+  # Nano syntax highlighting configuration (Pure version)
+  home.file.".nanorc".text = ''
+    include "${pkgs.nano}/share/nano/markdown.nanorc"
+    include "${pkgs.nano}/share/nano/tex.nanorc"
+    include "${pkgs.nano}/share/nano/html.nanorc"
   '';
 
   # Alacritty Configuration with Dracula Theme and Nerd Fonts
@@ -121,7 +121,10 @@ in {
     };
     initExtra = ''
       export PATH="$HOME/.config/emacs/bin:$PATH"
-      ~/myfetch.sh  # Replace neofetch with your custom script
+      # The following script is not managed by Nix and will fail on a new system.
+      # It should be managed with `home.file` to ensure it exists.
+      # e.g. home.file.".local/bin/myfetch.sh".source = ./myfetch.sh;
+      # ~/myfetch.sh  # Replace neofetch with your custom script
       eval "$(starship init bash)"
     '';
   };
@@ -146,7 +149,7 @@ in {
     xdg-desktop-portal-wlr # Replace with gtk if needed
     fuse
     flatpak
-    lxd-lts
+    lxd
     nixfmt-classic
     nvtopPackages.full
     rapidjson

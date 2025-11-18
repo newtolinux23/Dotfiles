@@ -20,12 +20,6 @@
           home-manager.nixosModules.home-manager # Integrate Home Manager with NixOS
         ];
       };
-    };  
-    homeConfigurations = { 
-      rob = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./home.nix ];
-      };
-    }; 
+    };
   };
 }

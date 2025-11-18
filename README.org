@@ -1,38 +1,64 @@
-#+TITLE: NixOS Configurations
-#+AUTHOR: Rob
-#+DATE: [2024-07-25]
-#+OPTIONS: toc:nil
+#+TITLE: My NixOS Configuration
+#+AUTHOR: Rob Alicea
+#+DESCRIPTION: A personal NixOS setup managed with Flakes, featuring Hyprland and Home Manager.
 
-[[https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/NixOS_logo.svg/1280px-NixOS_logo.svg.png]]
+* Overview
+This repository contains my personal NixOS configuration, managed declaratively using [[https://nixos.wiki/wiki/Flakes][Nix Flakes]]. It sets up a complete desktop environment based on the [[https://hyprland.org/][Hyprland]] Wayland compositor and manages user-specific dotfiles with [[https://github.com/nix-community/home-manager][Home Manager]].
 
-* Introduction
+* 📂 Structure
+The configuration is broken down into several files and directories for better organization:
+- =flake.nix=: The entry point for the entire configuration. It defines the inputs (Nixpkgs, Home Manager) and the main outputs (the NixOS system).
+- =configuration.nix=: The main system-wide configuration file. It imports all other system modules.
+- =home.nix=: The main user-specific configuration file, managed by Home Manager. It defines dotfiles, user packages, and services.
+- =modules/=: Contains modularized parts of the configuration (e.g., Hyprland, Waybar).
+- =nixos-modules/=: Contains modularized parts of the main NixOS system configuration (e.g., hardware, networking).
 
-As a beginner in Linux, diving into NixOS and Hyprland might sound intimidating. There's a common myth circulating in the community that "NixOS is not for beginners," and that "Hyprland is even more difficult." While these tools have steep learning curves, I believe that with time, effort, and a willingness to learn, anyone can master them. My experience with NixOS and Hyprland has been challenging, but it has also been one of the most rewarding journeys I've undertaken in my computing life.
+* 🚀 Deployment
+To deploy this configuration on a new machine, follow these general steps.
 
-* My Experience with NixOS
+** 1. Initial NixOS Installation
+Boot from a NixOS installer USB drive and connect to the internet.
 
-When I first installed NixOS on my main PC, I knew I was stepping into a world very different from the typical Linux distributions. NixOS is a declarative, stateless, and reproducible operating system, which immediately intrigued me. However, the learning curve was steep—every configuration change required me to learn new concepts and syntax.
+** 2. Partitioning
+Partition your disks as desired. For this guide, we'll assume you have mounted your root partition to =/mnt= and your boot partition to =/mnt/boot=.
 
-Despite the challenges, I persisted. Every day, NixOS taught me something new, from managing packages with the Nix package manager to configuring my system with Home Manager. I even discovered the power of Nix flakes and began to appreciate the stability and flexibility that NixOS offered.
+** 3. Clone the Repository
+Clone this repository into the =/mnt/etc/nixos= directory.
+#+begin_src bash
+git clone https://github.com/newtolinux23/Dotfiles.git /mnt/etc/nixos
+#+end_src
 
-One of the most transformative experiences was learning to create modules for Home Manager. Initially, my configuration file became unwieldy and difficult to manage as I added more features. By breaking it down into modules, I was able to regain control and streamline my workflow. NixOS has not only changed how I interact with my PC but has also taught me the value of modularity and organization.
+** 4. Generate Hardware Configuration
+Generate an initial hardware configuration file. This will be imported by the main configuration.
+#+begin_src bash
+nixos-generate-config --root /mnt
+# You can now copy the generated hardware-configuration.nix to the repository
+cp /mnt/etc/nixos/hardware-configuration.nix /mnt/etc/nixos/Dotfiles/
+# Note: The repository already contains a hardware-configuration.nix, you may need to adapt it.
+#+end_src
 
-* Discovering Hyprland
+** 5. Build the System
+Now, build the system using the flake. The hostname for the system defined in the flake is =nixos=.
+#+begin_src bash
+nixos-install --flake /mnt/etc/nixos#nixos
+#+end_src
+After installation, reboot the system.
 
-A few days ago, I stumbled upon Hyprland, a dynamic tiling Wayland compositor. At first, it seemed like another daunting tool to learn, especially since I was still getting accustomed to NixOS. But the more I used it, the more I realized how powerful and flexible Hyprland is.
+* 🔐 Managing Secrets
+This configuration uses some services that require secret keys (e.g., a WireGuard VPN). The parts of the configuration that require secrets have been commented out to make the public repository safe and portable.
 
-Hyprland has significantly changed how I interact with my desktop environment. The customization options are vast, and its performance is snappy and responsive. Configuring Hyprland with NixOS has been an exhilarating experience. I've been fine-tuning my configuration files, learning to manage my settings with Home Manager, and creating a seamless workflow that suits my needs.
+The original configuration had a hardcoded path to a private key:
+=/home/rob/private.key=
 
-* The Power of Perseverance
+This is not a secure or reproducible practice. To manage secrets correctly, you should use a dedicated tool like:
+- [[https://github.com/Mic92/sops-nix][sops-nix]] (recommended)
+- [[https://github.com/ryantm/agenix][agenix]]
 
-The journey hasn't been easy. There were times when I felt overwhelmed by the complexity of NixOS and Hyprland. But every challenge I faced was an opportunity to learn and grow. Through perseverance and a willingness to dive deep into the documentation and community resources, I have been able to overcome obstacles and build a system that is uniquely tailored to my preferences.
+These tools allow you to encrypt your secrets and safely store them within this repository. You can then uncomment the relevant services and point them to the decrypted secret files provided by these tools.
 
-NixOS and Doom Emacs have forever changed how I work on my computer. They have provided me with a level of stability, flexibility, and control that I had never experienced before. NixOS, with its declarative configuration, has made my system incredibly robust, while Doom Emacs has become an indispensable tool in my workflow.
-
-* Conclusion
-
-To anyone considering NixOS and Hyprland, I say this: Don't be discouraged by the initial complexity. Yes, it might seem daunting at first, but the rewards are well worth the effort. If you're willing to put in the time to learn and explore, you'll find that these tools can transform your Linux experience in ways you never imagined.
-
-NixOS and Hyprland have taught me that the most powerful tools often come with the steepest learning curves. But with patience and perseverance, these tools can unlock new potentials and change how you interact with your computer forever.
-
-Keep pushing forward, keep learning, and don't be afraid to make mistakes. Every error is just another step toward mastery.
+* ✨ Customization
+To customize this configuration, you can edit the =.nix= files and rebuild the system:
+#+begin_src bash
+# From within the /etc/nixos directory
+sudo nixos-rebuild switch --flake .#nixos
+#+end_src
